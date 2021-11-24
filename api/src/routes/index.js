@@ -2,7 +2,6 @@ const { Router } = require('express');
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 const { getRecipesApi, getTypesApi, dbInfo } = require('./controllers')
-const { Recipe, Diet } = require('../db')
 const router = Router();
 
 // Configurar los routers
@@ -25,7 +24,8 @@ router.get('/recipes/:idRecipe', async (req, res) => {
 })
 
 router.get('/types', async (req, res) => {
-    
+    let types = await getTypesApi()
+    res.send(types)
 })
 
 router.post('/recipe', async (req, res) => {

@@ -5,10 +5,12 @@ const axios = require('axios');
 // apikey
 const { API_KEY } = process.env;
 
+// traer las recetas de la api
 const getRecipesApi = async () => {
     let apiUrl = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&number=100`)
     let apiData = await apiUrl.data.results.map(r => {
         return {
+            id: r.id,
             health_score: r.healthScore,
             score: r.spoonacularScore,
             name: r.title,
@@ -20,17 +22,30 @@ const getRecipesApi = async () => {
     return apiData
 }
 
+// definimos los tipos de dietas que tiene la api por defecto
+let diets = [
+    {name: 'Gluten Free'},
+    {name: 'Ketogenic'},
+    {name: 'Vegetarian'},
+    {name: 'Lacto-Vegetarian'},
+    {name: 'Ovo-Vegetarian'},
+    {name: 'Vegan'},
+    {name: 'Pescetarian'},
+    {name: 'Paleo'},
+    {name: 'Primal'},
+    {name: 'Low FODMAP'},
+    {name: 'Whole30'}
+]
+// traemos 
 const getTypesApi = async () => {
     let apiUrl = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&number=100`)
     let apiData = await apiUrl.data.results.map(r => {
         return {
-            diets: r.diets,
-            isVegetarian: r.vegetarian,
-            isVegan: r.vegan,
-            isGlutenFree: r.glutenFree,
+            diets: r.diets
         }
     })
-    return apiData
+    
+    diets.includes(apiData) 
 }
 
 const dbInfo = async () => {
@@ -44,6 +59,12 @@ const dbInfo = async () => {
     })
 }
 
+const getAllInfo = async () => {
+    let apiData = await getRecipesApi()
+    let dbData = await dbInfo()
+    let data = [...apiData, ...dbData]
+    return data
+}
 
 
 
@@ -52,5 +73,5 @@ module.exports = {
     getRecipesApi,
     getTypesApi,
     dbInfo,
-    allInfo,
+    getAllInfo
 }
