@@ -1,15 +1,15 @@
 const { Router } = require('express');
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
-const { apiRecipesInfo, apiRecipeInfoById, dbInfo, allInfo } = require('./controllers')
-
+const { getRecipesApi, getTypesApi, dbInfo } = require('./controllers')
+const { Recipe, Diet } = require('../db')
 const router = Router();
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 router.get('/recipes', async (req, res) => {
     let { name } = req.query;
-    let recipes = await apiRecipesInfo()
+    let recipes = await getRecipesApi()
     if (name) {
         let search = await recipes.filter(r => r.name.toLowerCase().include(name.toLowerCase()))
         if (search.length) return res.status(200).send(search)
@@ -18,8 +18,18 @@ router.get('/recipes', async (req, res) => {
     else return res.status(200).send(recipes)
 
 } );
-router.get('/recipes/:idRecipe', )
-router.get('/types', )
-router.post('/recipe', )
+
+router.get('/recipes/:idRecipe', async (req, res) => {
+    let { idRecipe } = req.params;
+
+})
+
+router.get('/types', async (req, res) => {
+    
+})
+
+router.post('/recipe', async (req, res) => {
+
+})
 
 module.exports = router;
