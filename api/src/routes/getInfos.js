@@ -6,7 +6,7 @@ const axios = require('axios');
 const { API_KEY } = process.env;
 
 // traer las recetas de la api
-const getRecipesApi = async () => {
+const getApiInfo = async () => {
     let apiUrl = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&number=100`)
     let apiData = await apiUrl.data.results.map(r => {
         return {
@@ -16,38 +16,19 @@ const getRecipesApi = async () => {
             name: r.title,
             img: r.image,
             summary: r.summary,
+            diets: r.diets,
+            isVegan: r.vegan,
+            isVegetarian: r.vegetarian,
+            isGlutenFree: r.glutenFree,
+            isWhole30: r.whole30,
+            isKetogenic: r.ketogenic,
+            isLowFodmap: r.lowFodmap,
             instructions: r.analyzedInstructions,
         }
     })
     return apiData
 }
-
-// definimos los tipos de dietas que tiene la api por defecto
-let diets = [
-    {name: 'Gluten Free'},
-    {name: 'Ketogenic'},
-    {name: 'Vegetarian'},
-    {name: 'Lacto-Vegetarian'},
-    {name: 'Ovo-Vegetarian'},
-    {name: 'Vegan'},
-    {name: 'Pescetarian'},
-    {name: 'Paleo'},
-    {name: 'Primal'},
-    {name: 'Low FODMAP'},
-    {name: 'Whole30'}
-]
-// traemos 
-const getTypesApi = async () => {
-    let apiUrl = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&number=100`)
-    let apiData = await apiUrl.data.results.map(r => {
-        return {
-            diets: r.diets
-        }
-    })
-    
-    diets.includes(apiData) 
-}
-
+// traer info de la base de datos
 const dbInfo = async () => {
     return await Recipe.findAll({
         include: Diet,
@@ -58,20 +39,16 @@ const dbInfo = async () => {
 
     })
 }
-
+// unir info de db y api
 const getAllInfo = async () => {
-    let apiData = await getRecipesApi()
+    let apiData = await getApiInfo()
     let dbData = await dbInfo()
     let data = [...apiData, ...dbData]
     return data
 }
 
-
-
-
 module.exports = {
-    getRecipesApi,
-    getTypesApi,
+    getApiInfo,
     dbInfo,
     getAllInfo
 }
