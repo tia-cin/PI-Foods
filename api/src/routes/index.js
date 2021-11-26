@@ -31,9 +31,25 @@ router.get('/recipes', async (req, res) => {
 
 
 // ruta para obtener una receta por id de la misma
-router.get('/recipes/:idRecipe', async (req, res) => {
-    let { idRecipe } = req.params
-    
+router.get('/recipes/:idReceta', async (req, res) => {
+    let { idReceta } = req.params
+    if (idReceta.length < 10) {
+        let recipe = await axios.get(`https://api.spoonacular.com/recipes/${idReceta}/information?apiKey=${API_KEY}`)
+        return res.json({
+                id: recipe.data.id,
+                name: recipe.data.title,
+                img: recipe.data.image,
+                diets: recipe.data.diets,
+                score: recipe.data.spoonacularScore,
+                health_score: recipe.data.healthScore,
+                summary: recipe.data.summary,
+                instructions: recipe.data.instructions
+        })
+    }
+    else {
+        let recipe = await Recipe.findByPk(idReceta, { include: Diet })
+        return res.json(recipe)
+    }
 })
 
 
