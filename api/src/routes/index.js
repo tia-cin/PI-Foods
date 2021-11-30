@@ -18,15 +18,29 @@ const router = Router();
 
 // ruta para obtener todas las recetas
 router.get('/recipes', async (req, res) => {
-    let { name } = req.query;
-    let recipes = await getApiInfo()
+    let { name, order, page } = req.query;
+    let recipesPerPage = 9;
+    let allRecipes = await getAllInfo();
+    // get recipe by name
     if (name) {
-        let search = await recipes.filter(r => r.name.toLowerCase().include(name.toLowerCase()))
+        let search = await allRecipes.filter(r => r.name.includes(name))
+        console.log(search)
         if (search.length) return res.status(200).send(search)
         else return res.status(404).send('No se encontró la receta')
     }
-    else return res.status(200).send(recipes)
-
+    // filter recipes
+    switch(order) {
+        case 'descendant':
+            allRecipes = allRecipes.sort((a, b) => {
+                b.name.localeCompare(a.name)
+            })
+        
+        default:
+            allRecipes = allRecipes.sort((a, b) => {
+                return a.name.localeCompare(b.name)
+            })
+    }
+    return res.status(200).send(allRecipes)
 } );
 
 
