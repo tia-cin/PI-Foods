@@ -1,9 +1,15 @@
+export const GET_RECIPES = 'GET_RECIPES'
+export const GET_TYPES_OF_DIETS = 'GET_TYPES_OF_DIETS'
+export const GET_RECIPE_DETAIL = 'GET_RECIPE_DETAIL'
+export const CREATE_RECIPE = 'CREATE_RECIPE'
+const axios = require('axios')
 // unir ruta /recipes 
-export function getRecipes() {
+export function getRecipes({ name, order, page, diet }) {
+    console.log(name,order,page,diet)
     return async (dispatch) => {
-        let recipes = await fetch('http://localhost:3001/recipes')
+        let recipes = await axios(`http://localhost:3001/recipes?name=${name ? name : ''}&order=${order ? order : ''}&page=${page ? page : 1}&diets=${diet}` )
         return dispatch({
-            type: 'GET_RECIPES',
+            type: GET_RECIPES,
             payload: recipes.data,
         })
     }
@@ -12,9 +18,9 @@ export function getRecipes() {
 // unir ruta /types
 export function getDiets() {
     return async (dispatch) => {
-        let diets = await fetch('http://localhost:3001/types')
+        let diets = await axios('http://localhost:3001/types')
         return dispatch({
-            type: 'GET_TYPES_OF_DIETS',
+            type: GET_TYPES_OF_DIETS,
             payload: diets.data,
         })
     }
@@ -23,9 +29,9 @@ export function getDiets() {
 // unir ruta /recipes/:idRecipes
 export function getRecipeDetail(idRecipe) {
     return async (dispatch) => {
-        let recipeDetail = await fetch('http://localhost/recipes/' + idRecipe)
+        let recipeDetail = await axios('http://localhost/recipes/' + idRecipe)
         return dispatch({
-            type: 'GET_RECIPE_DETAIL',
+            type: GET_RECIPE_DETAIL,
             payload: recipeDetail.data
         })
     }
@@ -34,10 +40,11 @@ export function getRecipeDetail(idRecipe) {
 // unir ruta /recipe
 export function createRecipe(payload) {
     return async (dispatch) => {
-        let newRecipe = await fetch('http://localhost/recipe', payload)
+        let newRecipe = await axios('http://localhost/recipe', payload)
         return dispatch({
-            type: 'CREATE_RECIPE',
+            type: CREATE_RECIPE,
             payload: newRecipe.data
         })
     }
 }
+

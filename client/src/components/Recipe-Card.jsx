@@ -5,7 +5,7 @@ const RecipeCard = ({name, img, diets}) => {
         <div>
             <h3>{name}</h3>
             <h4>{diets}</h4>
-            <img src={img} alt='recipe' width='100px' height='100px'/>
+            <img src={img} alt={name} width='100px' height='100px'/>
         </div>
     )
 }
