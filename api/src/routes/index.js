@@ -18,16 +18,11 @@ const router = Router();
 
 // ruta para obtener todas las recetas
 router.get('/recipes', async (req, res) => {
-    let { name, order, page } = req.query;
+    let { name, order, page, diet } = req.query;
     let recipesPerPage = 9;
     let allRecipes = await getAllInfo();
-    // get recipe by name
-    if (name) {
-        let search = await allRecipes.filter(r => r.name.includes(name))
-        console.log(search)
-        if (search.length) return res.status(200).send(search)
-        else return res.status(404).send('No se encontró la receta')
-    }
+    page = page ? page : 1
+
     // filter recipes
     switch(order) {
         case 'descendant':
@@ -40,7 +35,25 @@ router.get('/recipes', async (req, res) => {
                 return a.name.localeCompare(b.name)
             })
     }
-    return res.status(200).send(allRecipes)
+    
+    // get recipe by name
+    if (name) {
+        let search = await allRecipes.filter(r => r.name.includes(name))
+        if (search.length) return res.status(200).send(search)
+        else return res.status(404).send('No se encontró la receta')
+    }
+
+    // filtrado por dietas
+    if(diet) {
+        let search = await allRecipes.filter(r => r.diets.includes(diet))
+        if (search.length) res.status(200).send(search)
+        else return res.status(404).send('No se encontraron recetas de esa dieta')
+    }
+
+    // paginado
+    let recipes = allRecipes.slice((recipesPerPage * (page - 1)), (recipesPerPage * (page - 1) + recipesPerPage))
+    
+    return res.status(200).send(recipes)
 } );
 
 
