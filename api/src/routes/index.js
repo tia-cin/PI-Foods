@@ -82,7 +82,7 @@ router.get('/recipes/:idReceta', async (req, res) => {
 
 // ruta para obtener los tipos de dietas
 router.get('/types', async (req, res) => {
-    let infoApi = await getApiInfo()
+    let infoApi = await getAllInfo()
     let diets = infoApi.map(d => d.diets)
     let eachDiet = diets.map(d => {for (let i = 0; i < d.length; i++) return d[i]})
     eachDiet.push('ketogenic', 'vegetarian', 'lacto vegetarian', 'ovo vegetarian', 'vegan', 'pescetarian', 'paleo', 'primal', 'low fodmap', 'whole30')
@@ -91,7 +91,7 @@ router.get('/types', async (req, res) => {
     });
     
     let allDiets = await Diet.findAll()
-    res.send(allDiets)
+    res.send(allDiets.map(d => d.name))
 })
 
 
