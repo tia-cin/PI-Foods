@@ -1,20 +1,37 @@
-import { getRecipes } from '../actions';
-import { React } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { getRecipes } from '../actions'; // getRecipes
+import { React, useEffect, useState } from 'react'; // hooks
+import { useSelector, useDispatch } from 'react-redux'; // hooks
 import { Link } from 'react-router-dom';
-import RecipeCard from './Recipe-Card';
+import RecipeCard from './Recipe-Card'; // cartas
+import SearchBar from './SearchBar'; // barra de busqueda
 
 const Home = () => {
 	const dispatch = useDispatch()
 	const recipes = useSelector(state => state.recipes)
+	const [page, setPage] = useState(1)
+	const [name, setName] = useState('')
+	const [order, setOrder] = useState('asc')
+	const [diet, setDiet] = useState('')
 
 	let handleClick = (e) => {
 		e.preventDefault()
-		dispatch(getRecipes({}))
+		// console.log('handleclick' +e, name, order, page, diet)
+		dispatch(getRecipes(name, order, page, diet))
 	}
-	// useEffect(() => {
-		
-	// }, [dispatch])
+
+	let handlePrev = (e) => {
+		e.preventDefault()
+		setPage(page - 9)
+	}
+
+	let handleNext = (e) => {
+		e.preventDefault()
+		setPage(page + 9)
+	}
+
+	useEffect(() => {
+		dispatch(getRecipes(name, order, page, diet))
+	}, [dispatch, name, order, page, diet])
 
     return (
         <div>
@@ -23,6 +40,7 @@ const Home = () => {
                 <Link to='/home/recipe'>
                     <button>Create your own recipe!</button>
                 </Link>
+				<SearchBar />
                 <label>Filter your recipes by:</label>
 				<select>
 					<option value='isGlutenFree'>Gluten Free</option>
@@ -38,12 +56,18 @@ const Home = () => {
 					<option value='descendent'>Descendent</option>
 				</select>
             </nav>
-            <button onClick={e=>handleClick(e)}>Get all recipes</button>
+            <button onClick={e=>handleClick(e)}>Get recipes</button>
 			{
 				recipes && recipes.map((r, i) => {
-					return <RecipeCard name={r.name} diets={r.diets} img={r.img} key={i} />
+					return (
+						<div key={i}>
+							<RecipeCard name={r.name} diets={r.diets} img={r.img} id={r.id} />
+						</div>
+					)
 				})
 			}
+			<button onClick={e => handlePrev(e)} disabled={page <= 0}>⬅️</button>
+			<button onClick={e => handleNext(e)} disabled={recipes.length > 9}>➡️</button>
         </div> 
     )
 }

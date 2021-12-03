@@ -2,10 +2,12 @@ export const GET_RECIPES = 'GET_RECIPES'
 export const GET_TYPES_OF_DIETS = 'GET_TYPES_OF_DIETS'
 export const GET_RECIPE_DETAIL = 'GET_RECIPE_DETAIL'
 export const CREATE_RECIPE = 'CREATE_RECIPE'
+export const FILTER_BY_NAME = 'FILTER_BY_NAME'
 const axios = require('axios')
+
 // unir ruta /recipes 
 export function getRecipes({ name, order, page, diet }) {
-    console.log(name,order,page,diet)
+    // console.log('getrecipes' +name, order, page,diet)
     return async (dispatch) => {
         let recipes = await axios(`http://localhost:3001/recipes?name=${name ? name : ''}&order=${order ? order : ''}&page=${page ? page : 1}&diets=${diet}` )
         return dispatch({
