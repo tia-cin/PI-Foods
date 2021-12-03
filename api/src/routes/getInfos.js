@@ -17,12 +17,6 @@ const getApiInfo = async () => {
             img: r.image,
             summary: r.summary,
             diets: r.diets,
-            isVegan: r.vegan,
-            isVegetarian: r.vegetarian,
-            isGlutenFree: r.glutenFree,
-            isWhole30: r.whole30,
-            isKetogenic: r.ketogenic,
-            isLowFodmap: r.lowFodmap,
             instructions: r.analyzedInstructions,
         }
     })

@@ -21,9 +21,9 @@ router.get('/recipes', async (req, res) => {
     let { name, order, page, diet } = req.query;
     let recipesPerPage = 9;
     let allRecipes = await getAllInfo();
+    // console.log('apicall', allRecipes)
     page = page ? page : 1
-
-    // filter recipes
+        // filter recipes
     switch(order) {
         case 'descendant':
             allRecipes = allRecipes.sort((a, b) => {
