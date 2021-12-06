@@ -3,7 +3,7 @@ const { Router } = require('express');
 // Ejemplo: const authRouter = require('./auth.js');
 
 // requerimos controllers
-const { getApiInfo, dbInfo, getAllInfo } = require('./getInfos')
+const { getAllInfo } = require('./getInfos')
 // requirimos los models
 const { Recipe, Diet } = require('../db')
 // requerimos axios
@@ -18,23 +18,9 @@ const router = Router();
 
 // ruta para obtener todas las recetas
 router.get('/recipes', async (req, res) => {
-    let { name, order, page, diet } = req.query;
-    let recipesPerPage = 9;
+    let { name } = req.query;
     let allRecipes = await getAllInfo();
     // console.log('apicall', allRecipes)
-    page = page ? page : 1
-        // filter recipes
-    switch(order) {
-        case 'descendant':
-            allRecipes = allRecipes.sort((a, b) => {
-                b.name.localeCompare(a.name)
-            })
-        
-        default:
-            allRecipes = allRecipes.sort((a, b) => {
-                return a.name.localeCompare(b.name)
-            })
-    }
     
     // get recipe by name
     if (name) {
@@ -42,18 +28,8 @@ router.get('/recipes', async (req, res) => {
         if (search.length) return res.status(200).send(search)
         else return res.status(404).send('No se encontró la receta')
     }
-
-    // filtrado por dietas
-    if(diet) {
-        let search = await allRecipes.filter(r => r.diets.includes(diet))
-        if (search.length) res.status(200).send(search)
-        else return res.status(404).send('No se encontraron recetas de esa dieta')
-    }
-
-    // paginado
-    let recipes = allRecipes.slice((recipesPerPage * (page - 1)), (recipesPerPage * (page - 1) + recipesPerPage))
     
-    return res.status(200).send(recipes)
+    return res.status(200).send(allRecipes)
 } );
 
 
@@ -91,7 +67,7 @@ router.get('/types', async (req, res) => {
     });
     
     let allDiets = await Diet.findAll()
-    res.send(allDiets.map(d => d.name))
+    res.send(allDiets)
 })
 
 
