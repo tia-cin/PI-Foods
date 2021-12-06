@@ -3,50 +3,99 @@ export const GET_TYPES_OF_DIETS = 'GET_TYPES_OF_DIETS'
 export const GET_RECIPE_DETAIL = 'GET_RECIPE_DETAIL'
 export const CREATE_RECIPE = 'CREATE_RECIPE'
 export const FILTER_BY_NAME = 'FILTER_BY_NAME'
+export const FILTER_BY_DIET = 'FILTER_BY_DIET'
+export const ORDER_RECIPES = 'ORDER_RECIPES'
+
 const axios = require('axios')
 
 // unir ruta /recipes 
-export function getRecipes({ name, order, page, diet }) {
+export function getRecipes() {
     // console.log('getrecipes' +name, order, page,diet)
     return async (dispatch) => {
-        let recipes = await axios(`http://localhost:3001/recipes?name=${name ? name : ''}&order=${order ? order : ''}&page=${page ? page : 1}&diets=${diet}` )
-        return dispatch({
-            type: GET_RECIPES,
-            payload: recipes.data,
-        })
+        try {
+            let recipes = await axios(`http://localhost:3001/recipes` )
+            return dispatch({
+                type: GET_RECIPES,
+                payload: recipes.data,
+            })
+        } catch (error) {
+            console.log(error)
+        }
     }
 }
 
 // unir ruta /types
 export function getDiets() {
     return async (dispatch) => {
-        let diets = await axios('http://localhost:3001/types')
-        return dispatch({
-            type: GET_TYPES_OF_DIETS,
-            payload: diets.data,
-        })
+        try {
+            let diets = await axios('http://localhost:3001/types')
+            return dispatch({
+                type: GET_TYPES_OF_DIETS,
+                payload: diets.data,
+            })
+        } catch(error) {
+            console.log(error)
+        }
     }
 }
 
 // unir ruta /recipes/:idRecipes
 export function getRecipeDetail(idRecipe) {
     return async (dispatch) => {
-        let recipeDetail = await axios('http://localhost/recipes/' + idRecipe)
-        return dispatch({
-            type: GET_RECIPE_DETAIL,
-            payload: recipeDetail.data
-        })
+        try{
+            let recipeDetail = await axios('http://localhost/recipes/' + idRecipe)
+            return dispatch({
+                type: GET_RECIPE_DETAIL,
+                payload: recipeDetail.data
+            })
+        } catch(error){
+            console.log(error)
+        }
     }
 }
 
 // unir ruta /recipe
 export function createRecipe(payload) {
     return async (dispatch) => {
-        let newRecipe = await axios('http://localhost/recipe', payload)
-        return dispatch({
-            type: CREATE_RECIPE,
-            payload: newRecipe.data
-        })
+        try {
+            let newRecipe = await axios('http://localhost/recipe', payload)
+            return dispatch({
+                type: CREATE_RECIPE,
+                payload: newRecipe.data
+            })
+        } catch(error) {
+            console.log(error)
+        }
     }
 }
 
+// unir ruta /recipes?name=...
+export function filterByName(payload) {
+    return async (dispatch) => {
+        try {
+            let recipe = await axios(`http://localhost:3001/recipes?name=`+payload)
+            return dispatch({
+                type: FILTER_BY_NAME,
+                payload: recipe.data
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
+
+// crear action para filtrar por diets
+export function filterByDiets (payload) {
+    return {
+        type: FILTER_BY_DIET,
+        payload: payload
+    }
+}
+
+// crear action para ordenar recipes
+export function orderRecipes (payload) {
+    return {
+        type: ORDER_RECIPES,
+        payload: payload
+    }
+}

@@ -12,9 +12,8 @@ function App() {
       <div className="App">
         <Routes>
           <Route path='/' element={<LandingPage />}/>
-          <Route exact path='/home/recipes' element={<Home />}>
-            <Route exact path='/home/recipes/:idRecipe' element={<RecipeDetail />} />
-          </Route>
+          <Route exact path='/home/recipes' element={<Home />}/>
+          <Route exact path='/home/recipes/:id' element={<RecipeDetail />} />
           <Route exact path='/home/recipe' element={<CreateRecipe />} />
         </Routes> 
       </div>

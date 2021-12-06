@@ -1,0 +1,18 @@
+:root{
+    --mint-cream: #F1F7ED;
+    --msu-green: #243E36;
+    --forest-green-crayola: #7CA982;
+}
+.card {
+    border: solid .5vw black;
+    background-color: var(--msu-green);
+    color: var(--mint-cream);
+    width: 30vw;
+}
+.name {
+    margin: 0%;
+}
+.diets {
+    padding: .5vw;
+    margin: 0%;
+}

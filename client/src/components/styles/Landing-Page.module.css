@@ -1,0 +1,29 @@
+:root{
+    --mint-cream: #F1F7ED;
+    --msu-green: #243E36;
+    --forest-green-crayola: #7CA982;
+}
+.container {
+    height: 100%;
+}
+.title {
+    margin: 10vw;
+    font-size: 6vw;
+    color: var(--mint-cream);
+}
+.btn {
+    border-radius: 10px;
+    padding: 1.5vw 2.5vw;
+    border: solid 0.3vw black;
+    font-size: 1.8vw;
+    font-weight: bold;
+    color: black;
+    background-color: var(--mint-cream);
+}
+.btn:hover {
+    cursor: pointer;
+    transition: .5s;
+    color: var(--mint-cream);
+    background-color: var(--forest-green-crayola);
+    box-shadow: 9px 13px 21px 1px #141010;
+}

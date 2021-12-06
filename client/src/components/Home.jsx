@@ -1,73 +1,89 @@
-import { getRecipes } from '../actions'; // getRecipes
+import { filterByDiets, getDiets, getRecipes, orderRecipes } from '../actions'; // getRecipes
 import { React, useEffect, useState } from 'react'; // hooks
 import { useSelector, useDispatch } from 'react-redux'; // hooks
 import { Link } from 'react-router-dom';
 import RecipeCard from './Recipe-Card'; // cartas
 import SearchBar from './SearchBar'; // barra de busqueda
+import Paginado from './Paginado';
+import styles from './styles/Home.module.css'
 
 const Home = () => {
 	const dispatch = useDispatch()
-	const recipes = useSelector(state => state.recipes)
-	const [page, setPage] = useState(1)
-	const [name, setName] = useState('')
-	const [order, setOrder] = useState('asc')
-	const [diet, setDiet] = useState('')
+	const { recipes, diets } = useSelector(state => state)
 
+	// paginado
+	let [page, setPage] = useState(1) // comienzo de paginado
+	let [recipesXPage, setRecipesXPage] = useState(9)
+	let lastPage = page * recipesXPage
+	let firstPage = lastPage - recipesXPage
+	let displayRecipes = recipes.slice(firstPage, lastPage)
+
+	let handlePaginado = (pageNum) => {
+		setPage(pageNum)
+	}
+
+	// filter by diets
+	let handleDiets = (e) => {
+		e.preventDefault()
+		dispatch(filterByDiets(e.target.value))
+	}
+
+	// order
+	let [order, setOrder] = useState('')
+
+	let handleSort = (e) => {
+		e.preventDefault()
+		setOrder(e.target.value)
+		dispatch(orderRecipes(order))
+		setPage(1)
+	}
+
+	// display recipes
 	let handleClick = (e) => {
 		e.preventDefault()
-		// console.log('handleclick' +e, name, order, page, diet)
-		dispatch(getRecipes(name, order, page, diet))
+		dispatch(getRecipes())
 	}
 
-	let handlePrev = (e) => {
-		e.preventDefault()
-		setPage(page - 9)
-	}
-
-	let handleNext = (e) => {
-		e.preventDefault()
-		setPage(page + 9)
-	}
-
+	// useEffect
 	useEffect(() => {
-		dispatch(getRecipes(name, order, page, diet))
-	}, [dispatch, name, order, page, diet])
+		dispatch(getRecipes())
+		dispatch(getDiets())
+	}, [])
 
     return (
-        <div>
-            <h1>Tasty Recipes</h1>
-            <nav>
+        <div className={styles.container}>
+            <h1 className={styles.title}>Tasty Recipes</h1>
+            <nav className={styles.navbar}>
                 <Link to='/home/recipe'>
-                    <button>Create your own recipe!</button>
+                    <button className={styles.btns}>Create your own recipe!</button>
                 </Link>
 				<SearchBar />
-                <label>Filter your recipes by:</label>
-				<select>
-					<option value='isGlutenFree'>Gluten Free</option>
-					<option value='isKetogenic'>Ketogenic</option>
-					<option value='isVegetarian'>Vegetarian</option>
-					<option value='isVegan'>Vegan</option>
-					<option value='isLowFodmap'>Low FODMAP</option>
-					<option value='isWhole30'>Whole30</option>
+                <label className={styles.labels}>Filter your recipes by:</label>
+				<select onChange={e=>handleDiets(e)}>
+					{
+						diets && diets.map(d => (
+							<option value={d.name} key={d.id}>{d.name}</option>
+						))	
+					}
 				</select>
-				<label>Order:</label>
-				<select>
-					<option value='ascendent'>Ascendent</option>
-					<option value='descendent'>Descendent</option>
+				<label className={styles.labels}>Order:</label>
+				<select onChange={e=>handleSort(e)}>
+					<option value='asc'>Ascendent</option>
+					<option value='desc'>Descendent</option>
 				</select>
             </nav>
-            <button onClick={e=>handleClick(e)}>Get recipes</button>
-			{
-				recipes && recipes.map((r, i) => {
+            <button className={styles.btns} onClick={e=>handleClick(e)}>Get recipes</button>
+			<Paginado recipesXPage={recipesXPage} recipes={recipes.length} handlePaginado={handlePaginado}/>
+			<div className={styles.cardsContainer}>
+				{
+				displayRecipes && displayRecipes.map((r, i) => {
 					return (
-						<div key={i}>
-							<RecipeCard name={r.name} diets={r.diets} img={r.img} id={r.id} />
-						</div>
+						<RecipeCard name={r.name} diets={r.diets} img={r.img} id={r.id} summary={r.summary} instructions={r.instructions} score={r.score} health_score={r.health_score} />
 					)
 				})
 			}
-			<button onClick={e => handlePrev(e)} disabled={page <= 0}>⬅️</button>
-			<button onClick={e => handleNext(e)} disabled={recipes.length > 9}>➡️</button>
+			</div>
+			
         </div> 
     )
 }

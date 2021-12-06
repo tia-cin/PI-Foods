@@ -65,7 +65,7 @@ function CreateRecipe() {
 
     useEffect(() => {
         dispatch(getDiets())
-    }, [])
+    }, [dispatch])
 
     return (
         <div>
@@ -83,7 +83,7 @@ function CreateRecipe() {
 						placeholder='Name...'
                         required
                         value={input.name}
-						onChange={handleChange}
+						onChange={e=>handleChange(e)}
 					/>{ error.name &&  <p>{error.name}</p> } 
 				</div>
                 <div>
@@ -92,7 +92,7 @@ function CreateRecipe() {
                         placeholder='Summary...'
                         required
                         value={input.summary}
-						onChange={handleChange}
+						onChange={e=>handleChange(e)}
                     />{ error.summary &&  <p>{error.summary}</p> } 
                 </div>
                 <div>
@@ -103,7 +103,7 @@ function CreateRecipe() {
                         placeholder='Score...'
                         required
 						value={input.score}
-						onChange={handleChange}
+						onChange={e=>handleChange(e)}
                     />{ error.score &&  <p>{error.score}</p> } 
                 </div>
                 <div>
@@ -114,7 +114,7 @@ function CreateRecipe() {
                         placeholder='Health score...'
                         required
                         value={input.health_score}
-						onChange={handleChange}
+						onChange={e=>handleChange(e)}
                     />{ error.health_score &&  <p>{error.health_score}</p> } 
                 </div>
                 <div>
@@ -123,22 +123,25 @@ function CreateRecipe() {
                         placeholder='Instructions...'
                         required
                         value={input.instructions}
-						onChange={handleChange}
+						onChange={e=>handleChange(e)}
                     />
                 </div>
-                <div>
-					<input type='checkbox' value='Gluten Free' name='isGlutenFree' onChange={e=>handleCheckBox(e)}/> <label>Gluten Free</label> <br/>
-					<input type='checkbox' value='Ketogenic' name='isKetogenic'  onChange={e=>handleCheckBox(e)}/>  <label>Ketogenic</label> <br/>
-					<input type='checkbox' value='Vegetarian' name='isVegetarian'  onChange={e=>handleCheckBox(e)}/>  <label>Vegetarian</label> <br/>
-					<input type='checkbox' value='Vegan' name='isVegan'  onChange={e=>handleCheckBox(e)}/>  <label>Vegan</label> <br/>
-					<input type='checkbox' value='Low FODMAP' name='isLowFodMAp'  onChange={e=>handleCheckBox(e)}/>  <label>Low FODMAP</label> <br/>
-					<input type='checkbox' value='Whole30' name='isWhole30'  onChange={e=>handleCheckBox(e)}/>  <label>Whole30</label> <br/>
-					<input type='checkbox' value='Lacto-Vegetarian' name='isLactoVegetarian'  onChange={e=>handleCheckBox(e)}/>  <label>Lacto-Vegetarian</label> <br/>
-					<input type='checkbox' value='Ovo-Vegetarian' name='isOvoVegetarian'  onChange={e=>handleCheckBox(e)}/>  <label>Ovo-Vegetarian</label> <br/>
-					<input type='checkbox' value='Pescetarian' name='isPascetarian'  onChange={e=>handleCheckBox(e)}/>  <label>Pascetarian</label> <br/>
-					<input type='checkbox' value='Paleo' name='isPaleo'  onChange={e=>handleCheckBox(e)}/>  <label>Paleo</label> <br/>
-					<input type='checkbox' value='Primal' name='isPrimal'  onChange={e=>handleCheckBox(e)}/>  <label>Primal</label> <br/>
-				</div>
+                
+					{
+                        diets && diets.map(d => (
+                                <div key={d.id}>
+                                    <label>{d.name}</label>
+                                    <input 
+                                    type='checkbox'
+                                    name={d.name}
+                                    placeholder={d.name}
+                                    value={input.diets}
+                                    onChange={e=>handleCheckBox(e)}                                
+                                    />
+                                </div>
+                        ))
+                    }
+				
                 <button type='submit'>Make recipe!</button>
            </form>
         </div>

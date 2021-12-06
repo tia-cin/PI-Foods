@@ -1,0 +1,13 @@
+:root{
+    --mint-cream: #F1F7ED;
+    --msu-green: #243E36;
+    --forest-green-crayola: #7CA982;
+}
+.listContainer {
+    display: flex;
+   list-style-type: none; 
+   flex-direction: row;
+}
+.items {
+    float: left;
+}

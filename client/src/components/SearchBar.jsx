@@ -1,4 +1,4 @@
-import { getRecipes } from '../actions';
+import { filterByName } from '../actions';
 import { useState, React} from 'react';
 import { useDispatch } from 'react-redux';
 
@@ -13,18 +13,18 @@ const SearchBar = () => {
 
     let handleSubmit = (e) => {
         e.preventDefault()
-        dispatch(getRecipes({name: name}))
+        dispatch(filterByName(name))
     }
 
     return (
-        <div>
+        <form onSubmit={e=>handleSubmit(e)}>
             <input
                 type='text'
                 placeholder='Search recipe...'
                 onChange={e=>handleName(e)}
             />
             <button type='submit' onClick={e=>handleSubmit(e)}>🔍</button>
-        </div>
+        </form>
     )
 }
 export default SearchBar

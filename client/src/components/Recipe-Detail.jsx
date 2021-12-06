@@ -5,10 +5,10 @@ import { getRecipeDetail } from "../actions";
 
 function RecipeDetail(props) {
     const dispatch = useDispatch();
-    const recipeDetail = useSelector(state => state.recipeDetail)
-
+    const recipe = useSelector(state => state.recipeDetail)
+    console.log(props)
     useEffect(() => {
-        dispatch(getRecipeDetail(props.match.params.idRecipe))
+        dispatch(getRecipeDetail())
     }, [dispatch])
 
     return (
@@ -19,19 +19,19 @@ function RecipeDetail(props) {
                     <button>Back to Home</button>
                 </Link>
             </nav> 
-            {
-                recipeDetail[0] ?
+            {/* {
+                recipe ?
                 <div>
-                    <h1>{recipeDetail[0].name}</h1>
-                    <h3>{recipeDetail[0].diets}</h3>
-                    <h3>{recipeDetail[0].summary}</h3>
-                    <h3>{recipeDetail[0].score}</h3>
-                    <h3>{recipeDetail[0].health_score}</h3>
-                    <h3>{recipeDetail[0].instructions}</h3>
-                    <img src={recipeDetail[0].img} width='100px' height='100px' alt='recipe'/>
-                </div> :
-                <h1>Loading...</h1>
-            }
+                   	<h1>{name}</h1>
+					<img src={img} width='200px' heigth='200px' alt={name}/>
+					<h3>Diets: {diets}</h3>
+					<h3>Summary: {summary}</h3>
+					<h3>Score: {score}</h3>
+					<h3>Health score: {health_score}</h3>
+					<h3>Instructions: {instructions}</h3>
+				</div>  : 
+				<h1>Loading...</h1>
+            } */}
         </div>
     )
 }
