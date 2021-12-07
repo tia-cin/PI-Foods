@@ -24,7 +24,7 @@ router.get('/recipes', async (req, res) => {
     
     // get recipe by name
     if (name) {
-        let search = await allRecipes.filter(r => r.name.includes(name))
+        let search = await allRecipes.filter(r => r.title.toLowerCase().includes(name))
         if (search.length) return res.status(200).send(search)
         else return res.status(404).send('No se encontró la receta')
     }
@@ -34,10 +34,10 @@ router.get('/recipes', async (req, res) => {
 
 
 // ruta para obtener una receta por id de la misma
-router.get('/recipes/:idReceta', async (req, res) => {
-    let { idReceta } = req.params
-    if (idReceta.length < 10) {
-        let recipe = await axios.get(`https://api.spoonacular.com/recipes/${idReceta}/information?apiKey=${API_KEY}`)
+router.get('/recipes/:id', async (req, res) => {
+    let { id } = req.params
+    if (id.length < 10) {
+        let recipe = await axios.get(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY}`)
         return res.json({
                 id: recipe.data.id,
                 name: recipe.data.title,
@@ -50,7 +50,7 @@ router.get('/recipes/:idReceta', async (req, res) => {
         })
     }
     else {
-        let recipe = await Recipe.findByPk(idReceta, { include: Diet })
+        let recipe = await Recipe.findByPk(id, { include: Diet })
         return res.json(recipe)
     }
 })
