@@ -7,6 +7,7 @@
     height: 100%;
     display: flex;
     flex-direction: column;
+    animation: display 1s ease 0s 1 normal forwards;
 }
 .title {
     margin: 10vw;
@@ -35,4 +36,15 @@
     color: var(--mint-cream);
     background-color: var(--forest-green-crayola);
     box-shadow: 9px 13px 21px 1px #141010;
+}
+@keyframes display {
+    0% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+      
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

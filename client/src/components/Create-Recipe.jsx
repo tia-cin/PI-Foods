@@ -16,6 +16,7 @@ function CreateRecipe() {
         diets: [],
         instructions: '',
     })
+    let submited = false
 
     let validation = () => {
         let error = {}
@@ -62,6 +63,7 @@ function CreateRecipe() {
             diets: [],
             instructions: '',
         })
+        submited = true
     }
 
     useEffect(() => {
@@ -151,6 +153,10 @@ function CreateRecipe() {
                 
            </form>
            <button type='submit' className={style.btns}>Make recipe!</button>
+           {
+               submited && <h3>Your recipe has been created!</h3> 
+           }
+               
         </div>
     )
 }

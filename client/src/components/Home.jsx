@@ -13,7 +13,7 @@ const Home = () => {
 
 	// paginado
 	let [page, setPage] = useState(1) // comienzo de paginado
-	let [recipesXPage, setRecipesXPage] = useState(9)
+	let recipesXPage = 9
 	let lastPage = page * recipesXPage
 	let firstPage = lastPage - recipesXPage
 	let displayRecipes = recipes.slice(firstPage, lastPage)
@@ -29,13 +29,9 @@ const Home = () => {
 	}
 
 	// order
-	let [order, setOrder] = useState('')
-
 	let handleSort = (e) => {
 		e.preventDefault()
-		setOrder(e.target.value)
 		dispatch(orderRecipes(e.target.value))
-		setPage(1)
 	}
 
 	// display recipes
@@ -48,7 +44,7 @@ const Home = () => {
 	useEffect(() => {
 		dispatch(getRecipes())
 		dispatch(getDiets())
-	}, [])
+	}, [dispatch])
 
     return (
         <div className={styles.container}>

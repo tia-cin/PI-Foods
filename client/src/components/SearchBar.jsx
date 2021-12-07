@@ -19,7 +19,7 @@ const SearchBar = () => {
     }
 
     return (
-        <form onSubmit={e=>handleSubmit(e)}>
+        <form className={style.container} onSubmit={e=>handleSubmit(e)}>
             <input className={style.input}
                 type='text'
                 placeholder='Search recipe...'

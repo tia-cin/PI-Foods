@@ -6,6 +6,7 @@
 .container {
     background-color: var(--forest-green-crayola);
     padding-bottom: 3vw;
+    animation: display 1s ease 0s 1 normal forwards;
 }
 .title {
     color: var(--mint-cream);
@@ -42,4 +43,15 @@
     font-size: 2vw;
     font-weight:bold;
     color: var(--mint-cream);
+}
+@keyframes display {
+    0% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+      
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
