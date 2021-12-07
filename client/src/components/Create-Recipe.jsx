@@ -16,7 +16,6 @@ function CreateRecipe() {
         diets: [],
         instructions: '',
     })
-    let submited = false
 
     let validation = () => {
         let error = {}
@@ -51,7 +50,6 @@ function CreateRecipe() {
             })
         }
     }
-
     let handleSubmit = (e) => {
         e.preventDefault()
         dispatch(createRecipe(input))
@@ -63,7 +61,6 @@ function CreateRecipe() {
             diets: [],
             instructions: '',
         })
-        submited = true
     }
 
     useEffect(() => {
@@ -134,10 +131,11 @@ function CreateRecipe() {
 						onChange={e=>handleChange(e)}
                     />
                 </div>
-                
-					{
+					<div className={style.dietsContainer}>
+                        <label>Diets:</label>
+                        {
                         diets && diets.map(d => (
-                                <div key={d.id}>
+                                <div className={style.dietsOptions} key={d.id}>
                                     <label>{d.name}</label>
                                     <input 
                                     type='checkbox'
@@ -149,13 +147,12 @@ function CreateRecipe() {
                                 </div>
                         ))
                     }
-				
-                
+                    </div>
            </form>
-           <button type='submit' className={style.btns}>Make recipe!</button>
-           {
+           <button type='submit' onClick={e=>handleSubmit(e)} className={style.btns}>Make recipe!</button>
+           {/* {
                submited && <h3>Your recipe has been created!</h3> 
-           }
+           } */}
                
         </div>
     )

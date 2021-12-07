@@ -43,7 +43,8 @@ export function getDiets() {
 export function getRecipeDetail(id) {
     return async (dispatch) => {
         try{
-            let recipeDetail = await axios('http://localhost:3001/recipes/' + id)
+            let recipeDetail = await axios(`http://localhost:3001/recipes/${id}`)
+            console.log(recipeDetail.data)
             return dispatch({
                 type: GET_RECIPE_DETAIL,
                 payload: recipeDetail.data

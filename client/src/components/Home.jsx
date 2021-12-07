@@ -34,12 +34,6 @@ const Home = () => {
 		dispatch(orderRecipes(e.target.value))
 	}
 
-	// display recipes
-	let handleClick = (e) => {
-		e.preventDefault()
-		dispatch(getRecipes())
-	}
-
 	// useEffect
 	useEffect(() => {
 		dispatch(getRecipes())
@@ -68,7 +62,6 @@ const Home = () => {
 					<option value='desc'>Descendent</option>
 				</select>
             </nav>
-            <button className={styles.btns} onClick={e=>handleClick(e)}>Get recipes</button>
 			<Paginado recipesXPage={recipesXPage} recipes={recipes.length} handlePaginado={handlePaginado}/>
 			<div className={styles.cardsContainer}>
 				{
