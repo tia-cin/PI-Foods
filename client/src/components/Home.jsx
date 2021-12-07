@@ -34,7 +34,7 @@ const Home = () => {
 	let handleSort = (e) => {
 		e.preventDefault()
 		setOrder(e.target.value)
-		dispatch(orderRecipes(order))
+		dispatch(orderRecipes(e.target.value))
 		setPage(1)
 	}
 

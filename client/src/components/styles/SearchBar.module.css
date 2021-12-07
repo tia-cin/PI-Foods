@@ -3,16 +3,16 @@
     --msu-green: #243E36;
     --forest-green-crayola: #7CA982;
 }
-.btns {
+.btn {
     border-radius: 10px;
-    padding: .5vw 1.5vw;
+    padding: .5vw 1vw;
     border: solid 0.3vw black;
     font-size: 1.8vw;
     font-weight: bold;
     color: black;
     background-color: var(--mint-cream);
 }
-.btns:hover {
+.btn:hover {
     cursor: pointer;
     transition: .5s;
     color: var(--mint-cream);
@@ -21,6 +21,6 @@
 }
 .input {
     border-radius: 10px;
-    padding: .5vw;
+    padding: 1vw;
     border: solid black .3vw;
 }

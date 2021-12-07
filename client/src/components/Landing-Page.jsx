@@ -6,6 +6,7 @@ const LandingPage = () =>{
     return (
         <div className={style.container}>
             <h1 className={style.title}>Welcome to Diets App!</h1>
+            <span className={style.credit}>© Cintia Arce</span>
             <Link to='/home/recipes'>
                 <button className={style.btn}>Start</button>
             </Link>

@@ -26,7 +26,7 @@ const SearchBar = () => {
                 onChange={e=>handleName(e)}
                 value={name}
             />
-            <button className={style.btns} type='submit' onClick={e=>handleSubmit(e)}>🔍</button>
+            <button className={style.btn} type='submit' onClick={e=>handleSubmit(e)}>🔍</button>
         </form>
     )
 }
