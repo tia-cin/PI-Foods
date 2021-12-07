@@ -78,7 +78,7 @@ const Home = () => {
 				{
 				displayRecipes && displayRecipes.map((r, i) => {
 					return (
-						<RecipeCard name={r.name} diets={r.diets} img={r.img} id={r.id} summary={r.summary} instructions={r.instructions} score={r.score} health_score={r.health_score} />
+						<RecipeCard key={i} name={r.title} diets={r.diets} img={r.image} id={r.id} summary={r.summary} instructions={r.instructions} score={r.score} health_score={r.health_score} />
 					)
 				})
 			}

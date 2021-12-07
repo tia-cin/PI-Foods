@@ -40,10 +40,10 @@ export function getDiets() {
 }
 
 // unir ruta /recipes/:idRecipes
-export function getRecipeDetail(idRecipe) {
+export function getRecipeDetail(id) {
     return async (dispatch) => {
         try{
-            let recipeDetail = await axios('http://localhost/recipes/' + idRecipe)
+            let recipeDetail = await axios('http://localhost:3001/recipes/' + id)
             return dispatch({
                 type: GET_RECIPE_DETAIL,
                 payload: recipeDetail.data
@@ -58,7 +58,7 @@ export function getRecipeDetail(idRecipe) {
 export function createRecipe(payload) {
     return async (dispatch) => {
         try {
-            let newRecipe = await axios('http://localhost/recipe', payload)
+            let newRecipe = await axios('http://localhost:3001/recipe', payload)
             return dispatch({
                 type: CREATE_RECIPE,
                 payload: newRecipe.data
@@ -73,7 +73,7 @@ export function createRecipe(payload) {
 export function filterByName(payload) {
     return async (dispatch) => {
         try {
-            let recipe = await axios(`http://localhost:3001/recipes?name=`+payload)
+            let recipe = await axios(`http://localhost:3001/recipes?name=${payload}`)
             return dispatch({
                 type: FILTER_BY_NAME,
                 payload: recipe.data

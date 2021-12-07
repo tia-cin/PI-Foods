@@ -11,3 +11,19 @@
 .items {
     float: left;
 }
+.number {
+    border-radius: 10px;
+    padding: 1vw 2vw;
+    border: solid 0.3vw black;
+    font-size: 1vw;
+    font-weight: bold;
+    color: black;
+    background-color: var(--mint-cream);
+}
+.number:hover {
+    cursor: pointer;
+    transition: .5s;
+    color: var(--mint-cream);
+    background-color: var(--forest-green-crayola);
+    box-shadow: 9px 13px 21px 1px #141010;
+}

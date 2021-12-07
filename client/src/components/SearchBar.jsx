@@ -15,6 +15,7 @@ const SearchBar = () => {
     let handleSubmit = (e) => {
         e.preventDefault()
         dispatch(filterByName(name))
+        setName('')
     }
 
     return (
@@ -23,6 +24,7 @@ const SearchBar = () => {
                 type='text'
                 placeholder='Search recipe...'
                 onChange={e=>handleName(e)}
+                value={name}
             />
             <button className={style.btns} type='submit' onClick={e=>handleSubmit(e)}>🔍</button>
         </form>
