@@ -2,6 +2,7 @@ import { React, useState, useEffect } from "react";
 import {createRecipe, getDiets } from '../actions'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from "react-router-dom";
+import style from './styles/Create-Recipe.module.css'
 
 function CreateRecipe() {
     const dispatch = useDispatch()
@@ -68,15 +69,16 @@ function CreateRecipe() {
     }, [dispatch])
 
     return (
-        <div>
-           <h1>Create your Recipe</h1> 
-           <nav>
+        <div className={style.container}>
+           <h1 className={style.title}>Create your Recipe</h1> 
+           <nav className={style.navbar}>
                <Link to='/home/recipes'>
-                   <button>Back to Home</button>
+                   <button className={style.btns}>Back to Home</button>
                </Link>
            </nav>
-           <form onSubmit={e=>handleSubmit(e)}>
-                <div>
+           <form onSubmit={e=>handleSubmit(e)} className={style.form}>
+                <div className={style.inputContainer}>
+                    <label>Name:</label>
 					<input 
 						type='text'
 						name='name'
@@ -86,7 +88,8 @@ function CreateRecipe() {
 						onChange={e=>handleChange(e)}
 					/>{ error.name &&  <p>{error.name}</p> } 
 				</div>
-                <div>
+                <div className={style.inputContainer}>
+                    <label>Summary:</label>
                     <textarea
                         name='summary'
                         placeholder='Summary...'
@@ -95,7 +98,8 @@ function CreateRecipe() {
 						onChange={e=>handleChange(e)}
                     />{ error.summary &&  <p>{error.summary}</p> } 
                 </div>
-                <div>
+                <div className={style.inputContainer}>
+                    <label>Score:</label>
                     <input 
                         type='number'
                         min='0' max='100'
@@ -106,7 +110,8 @@ function CreateRecipe() {
 						onChange={e=>handleChange(e)}
                     />{ error.score &&  <p>{error.score}</p> } 
                 </div>
-                <div>
+                <div className={style.inputContainer}>
+                    <label>Health score:</label>
                     <input 
                         type='number'
                         min='0' max='100'
@@ -117,7 +122,8 @@ function CreateRecipe() {
 						onChange={e=>handleChange(e)}
                     />{ error.health_score &&  <p>{error.health_score}</p> } 
                 </div>
-                <div>
+                <div className={style.inputContainer}>
+                    <label>Instructions:</label>
                     <textarea 
                         name='instructions'
                         placeholder='Instructions...'
@@ -142,8 +148,9 @@ function CreateRecipe() {
                         ))
                     }
 				
-                <button type='submit'>Make recipe!</button>
+                
            </form>
+           <button type='submit' className={style.btns}>Make recipe!</button>
         </div>
     )
 }
