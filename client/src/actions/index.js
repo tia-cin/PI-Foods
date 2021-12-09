@@ -41,6 +41,7 @@ export function getDiets() {
 
 // unir ruta /recipes/:idRecipes
 export function getRecipeDetail(id) {
+    console.log(id)
     return async (dispatch) => {
         try{
             let recipeDetail = await axios(`http://localhost:3001/recipes/${id}`)
