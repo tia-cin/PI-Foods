@@ -8,9 +8,9 @@ function RecipeDetail() {
     const dispatch = useDispatch();
     const { recipeDetail } = useSelector(state => state)
     const { id } = useParams()
-    console.log(recipeDetail.name)
+
     useEffect(() => {
-        dispatch(getRecipeDetail(id))
+        return dispatch(getRecipeDetail(id))
     }, [dispatch, id])
 
     return (
@@ -21,13 +21,13 @@ function RecipeDetail() {
                     <button className={style.btn}>Back to Home</button>
                 </Link>
             </nav> 
-            {
+            {   
                 recipeDetail &&
                 <div className={style.infoContainer}>
                    	<h3 className={style.info}>Name:</h3>
                        <p>{recipeDetail.name}</p>
 					<h3 className={style.info}>Diets:</h3>
-                        <p>{recipeDetail.diets}</p>
+                        <p>{recipeDetail.diets.join(', ')}</p>
 					<h3 className={style.info}>Summary: </h3>
                         <p>{recipeDetail.summary.replace(/<[^>]*>?/g)}</p>
 					<h3 className={style.info}>Score: </h3>
@@ -36,7 +36,7 @@ function RecipeDetail() {
                         <p>{recipeDetail.health_score}</p>
 					<h3 className={style.info}>Instructions: </h3>
                         <p>{recipeDetail.instructions.replace(/<[^>]*>?/g)}</p>
-                    <img src={recipeDetail.img} width='200px' heigth='200px' alt={recipeDetail.name}/>
+                    <img src={recipeDetail.img} width='400px' heigth='400px' alt={recipeDetail.name}/>
 				 </div> 
             }
         </div>

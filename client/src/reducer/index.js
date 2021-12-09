@@ -13,7 +13,7 @@ let initialState = {
     allRecipes: [],
     recipes: [],
     diets: [],
-    recipeDetail: [],
+    recipeDetail: {},
 }
 
 const rootReducer = (state = initialState, { type, payload }) => {
@@ -46,12 +46,12 @@ const rootReducer = (state = initialState, { type, payload }) => {
             }
         case ORDER_RECIPES:
             let sortedRecipes = payload === 'asc' ?
-                state.recipes.sort((a,b) => {
+                state.allRecipes.sort((a,b) => {
                     if (a.name > b.name) return 1
                     if  (a.name < b.name) return -1
                     else return 0
                 }) :
-                state.recipes.sort((a,b) => {
+                state.allRecipes.sort((a,b) => {
                     if(a.name > b.name) return -1
                     if(a.name < b.name) return 1
                     else return 0

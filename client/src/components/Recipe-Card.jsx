@@ -6,9 +6,9 @@ const RecipeCard = ({name, diets, img, id}) => {
 
     return (
         <div className={style.card}>
+            <img src={img} alt={name} width='300px' height='200px'/>
             <h3 className={style.name}>{name}</h3>
             <p className={style.diets}>{diets.join(', ')}</p>
-            <img src={img} alt={name} width='100px' height='100px'/>
             <Link to={'/home/recipes/' + id} >
                 <button className={style.btn}>+</button>
             </Link>

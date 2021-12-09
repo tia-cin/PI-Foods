@@ -3,6 +3,10 @@
     --msu-green: #243E36;
     --forest-green-crayola: #7CA982;
 }
+.container {
+    display: flex;
+    align-self: center;
+}
 .listContainer {
     display: flex;
    list-style-type: none; 
@@ -15,7 +19,7 @@
     border-radius: 10px;
     padding: 1vw 2vw;
     border: solid 0.3vw black;
-    font-size: 1vw;
+    font-size: 1.5vw;
     font-weight: bold;
     color: black;
     background-color: var(--mint-cream);

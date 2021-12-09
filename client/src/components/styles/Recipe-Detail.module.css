@@ -17,6 +17,15 @@
     flex-direction: row;
     justify-content: space-evenly;
 }
+.infoContainer {
+    padding: 3vw;
+}
+.infoContainer img {
+    border-radius: 10px;
+}
+.loading {
+    padding: 3vw;
+}
 .btn {
     border-radius: 10px;
     padding: 1.5vw 2.5vw;
