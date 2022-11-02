@@ -13,6 +13,7 @@ export interface RecipeType {
   score: number;
   health_score: number;
   instructions: string;
+  img: any;
   diets: DietType[];
 }
 
