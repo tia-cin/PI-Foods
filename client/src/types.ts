@@ -51,7 +51,7 @@ interface CreateRecipeAction {
 
 interface FilterByNameAction {
   type: typeof FILTER_BY_NAME;
-  payload: string;
+  payload: RecipeType[];
 }
 
 interface FilterByDietAction {
