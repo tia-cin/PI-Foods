@@ -1,8 +1,20 @@
 import React from "react";
-import "./App.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Landing, Home, Detail, Create } from "./pages";
 
 function App() {
-  return <h1 className="underline">Hello</h1>;
+  return (
+    <BrowserRouter>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/home/recipes/:id" element={<Detail />} />
+          <Route path="/create" element={<Create />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
+  );
 }
 
 export default App;

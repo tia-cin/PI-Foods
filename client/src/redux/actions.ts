@@ -6,12 +6,17 @@ import {
   FILTER_BY_NAME,
   FILTER_BY_DIET,
   ORDER_RECIPES,
+  ActionTypes,
+  RecipeType,
+  DietType,
 } from "../types";
+import { ThunkAction } from "redux-thunk";
+import { RootState } from "./store";
 
 const axios = require("axios");
 
 // unir ruta /recipes
-export function getRecipes() {
+export function getRecipes(): ThunkAction<void, RootState, null, ActionTypes> {
   // console.log('getrecipes' +name, order, page,diet)
   return async (dispatch) => {
     try {
@@ -27,7 +32,7 @@ export function getRecipes() {
 }
 
 // unir ruta /types
-export function getDiets() {
+export function getDiets(): ThunkAction<void, RootState, null, ActionTypes> {
   return async (dispatch) => {
     try {
       let diets = await axios("http://localhost:3001/types");
@@ -42,7 +47,9 @@ export function getDiets() {
 }
 
 // unir ruta /recipes/:idRecipes
-export function getRecipeDetail(id) {
+export function getRecipeDetail(
+  id: number
+): ThunkAction<void, RootState, null, ActionTypes> {
   console.log(id);
   return async (dispatch) => {
     try {
@@ -58,7 +65,9 @@ export function getRecipeDetail(id) {
 }
 
 // unir ruta /recipe
-export function createRecipe(payload) {
+export function createRecipe(
+  payload: RecipeType
+): ThunkAction<void, RootState, null, ActionTypes> {
   return async (dispatch) => {
     try {
       let newRecipe = await axios("http://localhost:3001/recipe", payload);
@@ -73,7 +82,9 @@ export function createRecipe(payload) {
 }
 
 // unir ruta /recipes?name=...
-export function filterByName(payload) {
+export function filterByName(
+  payload: string
+): ThunkAction<void, RootState, null, ActionTypes> {
   return async (dispatch) => {
     try {
       let recipe = await axios(`http://localhost:3001/recipes?name=${payload}`);
@@ -88,7 +99,7 @@ export function filterByName(payload) {
 }
 
 // crear action para filtrar por diets
-export function filterByDiets(payload) {
+export function filterByDiets(payload: DietType): ActionTypes {
   return {
     type: FILTER_BY_DIET,
     payload: payload,
@@ -96,7 +107,7 @@ export function filterByDiets(payload) {
 }
 
 // crear action para ordenar recipes
-export function orderRecipes(payload) {
+export function orderRecipes(payload: RecipeType[] | string): ActionTypes {
   return {
     type: ORDER_RECIPES,
     payload: payload,
