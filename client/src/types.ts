@@ -6,6 +6,12 @@ export const FILTER_BY_NAME = "FILTER_BY_NAME";
 export const FILTER_BY_DIET = "FILTER_BY_DIET";
 export const ORDER_RECIPES = "ORDER_RECIPES";
 
+export interface PaginationProps {
+  pages: number;
+  total: number;
+  handlePag: (pageNum: number) => void;
+}
+
 export interface CardProps {
   name: string;
   diets: DietType[];

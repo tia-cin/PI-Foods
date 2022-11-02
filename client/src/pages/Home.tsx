@@ -22,7 +22,7 @@ function Home() {
   let firstPage = lastPage - recipesXPage;
   let displayRecipes = recipes.slice(firstPage, lastPage);
 
-  let handlePaginado = (pageNum: number) => {
+  let handlePag = (pageNum: number) => {
     setPage(pageNum);
   };
 
@@ -58,7 +58,11 @@ function Home() {
           onChange={() => {}}
         />
       </div>
-      <Pagination />
+      <Pagination
+        pages={recipesXPage}
+        total={recipes.length}
+        handlePag={handlePag}
+      />
       <div>
         {displayRecipes.length &&
           displayRecipes.map((item, i) => <Card key={i} {...item} />)}
