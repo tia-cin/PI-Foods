@@ -6,6 +6,13 @@ export const FILTER_BY_NAME = "FILTER_BY_NAME";
 export const FILTER_BY_DIET = "FILTER_BY_DIET";
 export const ORDER_RECIPES = "ORDER_RECIPES";
 
+export interface CardProps {
+  name: string;
+  diets: DietType[];
+  img: any;
+  id?: number;
+}
+
 export interface ButtonProps {
   style?: string;
   text?: string;

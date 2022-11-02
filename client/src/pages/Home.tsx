@@ -61,7 +61,7 @@ function Home() {
       <Pagination />
       <div>
         {displayRecipes.length &&
-          displayRecipes.map((item, i) => <Card key={i} />)}
+          displayRecipes.map((item, i) => <Card key={i} {...item} />)}
       </div>
     </div>
   );

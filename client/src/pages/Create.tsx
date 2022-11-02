@@ -78,14 +78,14 @@ function Create() {
   }, [dispatch]);
   return (
     <div>
-      <div>
+      {/* <div>
         <Button />
         <h1>Create your Recipe</h1>
       </div>
       <form>
         <Input />
         <Button />
-      </form>
+      </form> */}
     </div>
   );
 }
