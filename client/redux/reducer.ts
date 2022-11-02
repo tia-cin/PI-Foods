@@ -6,17 +6,23 @@ import {
   FILTER_BY_NAME,
   FILTER_BY_DIET,
   ORDER_RECIPES,
+  StateType,
+  ActionTypes,
+  RecipeType,
 } from "../types";
 
 // estado inicial
-let initialState = {
+let initialState: StateType = {
   allRecipes: [],
   recipes: [],
   diets: [],
-  recipeDetail: {},
+  recipeDetail: null,
 };
 
-const rootReducer = (state = initialState, { type, payload }) => {
+const rootReducer = (
+  state = initialState,
+  { type, payload }: ActionTypes
+): StateType => {
   switch (type) {
     case GET_RECIPES:
       return {
@@ -25,7 +31,9 @@ const rootReducer = (state = initialState, { type, payload }) => {
         allRecipes: payload,
       };
     case FILTER_BY_DIET:
-      let recipes = state.allRecipes.filter((r) => r.diets.includes(payload));
+      let recipes = state.allRecipes.filter((r: RecipeType) =>
+        r.diets.includes(payload)
+      );
       return {
         ...state,
         recipes: recipes,

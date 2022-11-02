@@ -6,7 +6,7 @@ import {
   FILTER_BY_NAME,
   FILTER_BY_DIET,
   ORDER_RECIPES,
-} from "../../clients/src/actions";
+} from "../types";
 
 const axios = require("axios");
 
