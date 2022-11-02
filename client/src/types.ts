@@ -6,8 +6,22 @@ export const FILTER_BY_NAME = "FILTER_BY_NAME";
 export const FILTER_BY_DIET = "FILTER_BY_DIET";
 export const ORDER_RECIPES = "ORDER_RECIPES";
 
+export interface ButtonProps {
+  style?: string;
+  text?: string;
+  handle?: any;
+}
+
+export interface InputsProps {
+  select?: boolean;
+  text: string;
+  values: any;
+  onChange: () => void;
+  name?: string;
+}
+
 export interface RecipeType {
-  id: number;
+  id?: number;
   name: string;
   summary: string;
   score: number;

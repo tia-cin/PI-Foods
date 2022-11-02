@@ -8,6 +8,7 @@ module.exports = {
         "neutral-green": "#76B39D",
         "light-yellow": "#F9F8EB",
         "light-gray": "#EAE7E7",
+        white: "#f9f9f9",
       },
       width: {
         200: "200px",

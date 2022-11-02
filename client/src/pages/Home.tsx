@@ -45,13 +45,18 @@ function Home() {
   }, [dispatch]);
 
   return (
-    <div>
-      <h1>Tasye Recipes</h1>
-      <div>
-        <Button />
-        <Input />
-        <Input />
-        <Input />
+    <div className="flex flex-col items-center">
+      <h1 className="text-5xl font-semibold">Tasty Recipes</h1>
+      <div className="flex">
+        <Button text="Create Recipe" />
+        <Input text="Search" values={""} onChange={() => {}} />
+        <Input select text="Filter" values={diets} onChange={() => {}} />
+        <Input
+          select
+          text="Order"
+          values={["asc", "desc"]}
+          onChange={() => {}}
+        />
       </div>
       <Pagination />
       <div>

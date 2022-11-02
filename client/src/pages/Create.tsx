@@ -10,7 +10,6 @@ function Create() {
   const diets = useSelector((state: RootState) => state.diets);
   const [error, setError] = useState<AlertType>({ text: "", type: "" });
   const [input, setInput] = useState<RecipeType>({
-    id: 0,
     name: "",
     summary: "",
     score: 0,
@@ -64,7 +63,6 @@ function Create() {
     e.preventDefault();
     dispatch<any>(createRecipe(input));
     setInput({
-      id: 0,
       name: "",
       summary: "",
       score: 0,

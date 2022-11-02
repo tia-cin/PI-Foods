@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import salad from "../assets/salad-gif.gif";
+import { Button } from "../components";
 
 function Landing() {
   return (
@@ -12,9 +13,7 @@ function Landing() {
           Recipies!
         </h1>
         <Link to="/home">
-          <button className="mt-8 text-2xl bg-neutral-green text-white rounded-lg w-full h-12 transition-all hover:bg-dark-green">
-            Start
-          </button>
+          <Button text="Start" style="text-white mt-5 w-full " />
         </Link>
       </div>
       <div>
