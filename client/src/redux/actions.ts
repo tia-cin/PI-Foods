@@ -12,19 +12,19 @@ import {
 } from "../types";
 import { ThunkAction } from "redux-thunk";
 import { RootState } from "./store";
-
-const axios = require("axios");
+import axios from "axios";
 
 // unir ruta /recipes
 export function getRecipes(): ThunkAction<void, RootState, null, ActionTypes> {
-  // console.log('getrecipes' +name, order, page,diet)
   return async (dispatch) => {
     try {
-      let recipes = await axios(`http://localhost:3001/recipes`);
-      return dispatch({
-        type: GET_RECIPES,
-        payload: recipes.data,
-      });
+      let recipes = await axios.get("http://localhost:3001/recipes");
+      let res = await recipes.data;
+      console.log(res);
+      // return dispatch({
+      //   type: GET_RECIPES,
+      //   payload: recipes.data,
+      // });
     } catch (error) {
       console.log(error);
     }
@@ -35,7 +35,7 @@ export function getRecipes(): ThunkAction<void, RootState, null, ActionTypes> {
 export function getDiets(): ThunkAction<void, RootState, null, ActionTypes> {
   return async (dispatch) => {
     try {
-      let diets = await axios("http://localhost:3001/types");
+      let diets = await axios.get("http://localhost:3001/types");
       return dispatch({
         type: GET_TYPES_OF_DIETS,
         payload: diets.data,
@@ -70,7 +70,7 @@ export function createRecipe(
 ): ThunkAction<void, RootState, null, ActionTypes> {
   return async (dispatch) => {
     try {
-      let newRecipe = await axios("http://localhost:3001/recipe", payload);
+      let newRecipe = await axios.post("http://localhost:3001/recipe", payload);
       return dispatch({
         type: CREATE_RECIPE,
         payload: newRecipe.data,

@@ -11,7 +11,7 @@ const Pagination: React.FC<PaginationProps> = ({ pages, total, handlePag }) => {
   return (
     <div>
       {pagesTotal.map((item, i) => (
-        <Button text={item} handle={() => handlePag(item)} key={i} />
+        <Button text={`${item}`} handle={() => handlePag(item)} key={i} />
       ))}
     </div>
   );
