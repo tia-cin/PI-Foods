@@ -23,6 +23,11 @@ export interface DietType {
   recipe?: RecipeType[] | RecipeType;
 }
 
+export interface AlertType {
+  text: string;
+  type: string;
+}
+
 export interface StateType {
   allRecipes: RecipeType[];
   recipes: RecipeType[];
