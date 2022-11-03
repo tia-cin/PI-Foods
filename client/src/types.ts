@@ -8,6 +8,11 @@ export const FILTER_CONTINENT = "FILTER_CONTINENT";
 export const FILTER_ACTIVITY = "FILTER_ACTIVITY";
 export const SEARCH_COUNTRY = "SEARCH_COUNTRY";
 
+export interface TitlesProps {
+  title: string;
+  subtitle: string;
+}
+
 export interface PaginationProps {
   pages: number;
   total: number;
@@ -16,9 +21,9 @@ export interface PaginationProps {
 
 export interface CardProps {
   name: string;
-  diets: ActivityType[];
-  image: any;
-  id?: number;
+  activities: ActivityType[];
+  flag: string;
+  id: string;
 }
 
 export interface ButtonProps {
