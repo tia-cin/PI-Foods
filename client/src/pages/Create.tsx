@@ -1,37 +1,38 @@
 import React, { useState, useEffect } from "react";
-import { createRecipe, getDiets } from "../redux/actions";
+import { createActivity, getCountries } from "../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-import { AlertType, RecipeType } from "../types";
+import { AlertType, ActivityType } from "../types";
 import { Button, Input } from "../components";
 
-function Create() {
+const Create = () => {
   const dispatch = useDispatch();
-  const diets = useSelector((state: RootState) => state.diets);
+  const countries = useSelector((state: RootState) => state.countries);
   const [error, setError] = useState<AlertType>({ text: "", type: "" });
-  const [input, setInput] = useState<RecipeType>({
+  const [input, setInput] = useState<ActivityType>({
     name: "",
-    summary: "",
-    score: 0,
-    health_score: 0,
-    diets: [],
-    instructions: "",
-    image: "",
+    difficulty: 0,
+    duration: 0,
+    season: "",
+    countries: [],
   });
 
   let validation = (item: any) => {
     if (!input.name) {
       setError({ text: "Name is requided!", type: "Error" });
-    } else if (!input.summary) {
-      setError({ text: "Summary is requided!", type: "Error" });
-    } else if (!input.score) {
+    } else if (!input.difficulty) {
       setError({
-        text: "Score must be a number between 0 and 100!",
+        text: "Difficultymust be a number between 0 and 100!",
         type: "Error",
       });
-    } else if (!input.health_score) {
+    } else if (!input.duration) {
       setError({
-        text: "Health score must be a number between 0 and 100!",
+        text: "Duration must be a number between 0 and 100!",
+        type: "Error",
+      });
+    } else if (!input.season) {
+      setError({
+        text: "Season is required!",
         type: "Error",
       });
     }
@@ -55,26 +56,24 @@ function Create() {
     if (e.target.checked) {
       setInput({
         ...input,
-        diets: e.target.value,
+        countries: e.target.value,
       });
     }
   };
   let handleSubmit = (e: any) => {
     e.preventDefault();
-    dispatch<any>(createRecipe(input));
+    dispatch<any>(createActivity(input));
     setInput({
       name: "",
-      summary: "",
-      score: 0,
-      health_score: 0,
-      diets: [],
-      instructions: "",
-      image: "",
+      difficulty: 0,
+      duration: 0,
+      season: "",
+      countries: [],
     });
   };
 
   useEffect(() => {
-    dispatch<any>(getDiets());
+    dispatch<any>(getCountries());
   }, [dispatch]);
   return (
     <div>
@@ -88,6 +87,6 @@ function Create() {
       </form> */}
     </div>
   );
-}
+};
 
 export default Create;

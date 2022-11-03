@@ -10,6 +10,7 @@ import {
   SEARCH_COUNTRY,
   ActionTypes,
   CountryType,
+  ActivityType,
 } from "../types";
 import { ThunkAction } from "redux-thunk";
 import { RootState } from "./store";
@@ -70,7 +71,7 @@ export const getCountryInfo = (
 };
 
 export const createActivity = (
-  payload: CountryType
+  payload: ActivityType
 ): ThunkAction<void, RootState, null, ActionTypes> => {
   return async (dispatch) => {
     try {

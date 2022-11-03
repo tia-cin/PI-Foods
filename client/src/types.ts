@@ -55,6 +55,7 @@ export interface ActivityType {
   difficulty: number;
   duration: number;
   season: string;
+  countries?: CountryType[];
 }
 
 export interface AlertType {
@@ -85,7 +86,7 @@ interface GetCountryInfoAction {
 
 interface CreateActivityAction {
   type: typeof CREATE_ACTIVITY;
-  payload: CountryType;
+  payload: ActivityType;
 }
 
 interface OrderCountriesPopulationAction {
