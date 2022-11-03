@@ -44,6 +44,8 @@ function Home() {
     dispatch<any>(getDiets());
   }, [dispatch]);
 
+  console.log(displayRecipes);
+
   return (
     <div className="flex flex-col items-center">
       <h1 className="text-5xl font-semibold">Tasty Recipes</h1>

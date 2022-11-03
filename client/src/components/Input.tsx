@@ -12,9 +12,11 @@ const Input: React.FC<InputsProps> = ({
     <div>
       {select ? (
         <select onChange={onChange}>
-          {values.map((item: any, i: number) => (
-            <option key={i}>{item}</option>
-          ))}
+          {/* {values.map((item: any, i: number) => (
+            <option key={i} value={item}>
+              {item}
+            </option>
+          ))} */}
         </select>
       ) : (
         <input value={values} onChange={onChange} />

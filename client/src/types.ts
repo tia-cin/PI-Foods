@@ -15,7 +15,7 @@ export interface PaginationProps {
 export interface CardProps {
   name: string;
   diets: DietType[];
-  img: any;
+  image: any;
   id?: number;
 }
 
@@ -40,7 +40,7 @@ export interface RecipeType {
   score: number;
   health_score: number;
   instructions: string;
-  img: any;
+  image: any;
   diets: DietType[];
 }
 

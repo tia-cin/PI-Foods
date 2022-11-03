@@ -31,7 +31,7 @@ function Detail() {
           <p>{recipeDetail.health_score}</p>
           <span>Instructions: </span>
           <p>{recipeDetail.instructions}</p>
-          <img src={recipeDetail.img} alt={recipeDetail.name} />
+          <img src={recipeDetail.image} alt={recipeDetail.name} />
         </div>
       ) : (
         <p>Loading...</p>

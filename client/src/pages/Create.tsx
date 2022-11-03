@@ -16,7 +16,7 @@ function Create() {
     health_score: 0,
     diets: [],
     instructions: "",
-    img: "",
+    image: "",
   });
 
   let validation = (item: any) => {
@@ -69,7 +69,7 @@ function Create() {
       health_score: 0,
       diets: [],
       instructions: "",
-      img: "",
+      image: "",
     });
   };
 

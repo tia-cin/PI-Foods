@@ -1,10 +1,10 @@
 import React from "react";
 import { CardProps } from "../types";
 
-const Card: React.FC<CardProps> = ({ name, diets, img, id }) => {
+const Card: React.FC<CardProps> = ({ name, diets, image, id }) => {
   return (
     <div>
-      <img src={img} alt={name} />
+      <img src={image} alt={name} />
       <p>{name}</p>
       <span>{diets.join(", ")}</span>
       <button onClick={() => window.open(`/`)}>+</button>
