@@ -1,116 +1,167 @@
 import {
-  GET_RECIPES,
-  GET_TYPES_OF_DIETS,
-  GET_RECIPE_DETAIL,
-  CREATE_RECIPE,
-  FILTER_BY_NAME,
-  FILTER_BY_DIET,
-  ORDER_RECIPES,
+  GET_COUNTRIES,
+  GET_ACTIVITIES,
+  GET_COUNTRY_INFO,
+  CREATE_ACTIVITY,
+  ORDER_COUNTRIES_POPULATION,
+  ORDER_COUNTRIES_NAME,
+  FILTER_CONTINENT,
+  FILTER_ACTIVITY,
+  SEARCH_COUNTRY,
   ActionTypes,
-  RecipeType,
-  DietType,
+  CountryType,
 } from "../types";
 import { ThunkAction } from "redux-thunk";
 import { RootState } from "./store";
 import axios from "axios";
 
-// unir ruta /recipes
-export function getRecipes(): ThunkAction<void, RootState, null, ActionTypes> {
+export const getCountries = (): ThunkAction<
+  void,
+  RootState,
+  null,
+  ActionTypes
+> => {
+  return (dispatch) => {
+    axios
+      .get("http://localhost:3001/countries")
+      .then((r) =>
+        dispatch({
+          type: GET_COUNTRIES,
+          payload: r.data,
+        })
+      )
+      .catch((error) => console.log(error));
+  };
+};
+
+export const getActivities = (): ThunkAction<
+  void,
+  RootState,
+  null,
+  ActionTypes
+> => {
   return async (dispatch) => {
     try {
-      const recipes = await axios.get("http://localhost:3001/recipes");
-      const res = await recipes.data;
-      // console.log(res);
+      const activities = await axios.get("http://localhost:3001/activity");
       return dispatch({
-        type: GET_RECIPES,
-        payload: recipes.data,
+        type: GET_ACTIVITIES,
+        payload: activities.data,
       });
     } catch (error) {
       console.log(error);
     }
   };
-}
+};
 
-// unir ruta /types
-export function getDiets(): ThunkAction<void, RootState, null, ActionTypes> {
+export const getCountryInfo = (
+  id: string
+): ThunkAction<void, RootState, null, ActionTypes> => {
+  return (dispatch) => {
+    axios
+      .get("http://localhost:3001/countries/" + id)
+      .then((r) =>
+        dispatch({
+          type: GET_COUNTRY_INFO,
+          payload: r.data,
+        })
+      )
+      .catch((error) => console.log(error));
+  };
+};
+
+export const createActivity = (
+  payload: CountryType
+): ThunkAction<void, RootState, null, ActionTypes> => {
   return async (dispatch) => {
     try {
-      const diets = await axios.get("http://localhost:3001/types");
-      const res = await diets.data;
+      const newActivity = await axios.post(
+        "http://localhost:3001/activity",
+        payload
+      );
       return dispatch({
-        type: GET_TYPES_OF_DIETS,
-        payload: diets.data,
+        type: CREATE_ACTIVITY,
+        payload: newActivity.data,
       });
     } catch (error) {
       console.log(error);
     }
   };
-}
+};
 
-// unir ruta /recipes/:idRecipes
-export function getRecipeDetail(
-  id: number
-): ThunkAction<void, RootState, null, ActionTypes> {
-  console.log(id);
-  return async (dispatch) => {
-    try {
-      let recipeDetail = await axios(`http://localhost:3001/recipes/${id}`);
-      return dispatch({
-        type: GET_RECIPE_DETAIL,
-        payload: recipeDetail.data,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-}
-
-// unir ruta /recipe
-export function createRecipe(
-  payload: RecipeType
-): ThunkAction<void, RootState, null, ActionTypes> {
-  return async (dispatch) => {
-    try {
-      let newRecipe = await axios.post("http://localhost:3001/recipe", payload);
-      return dispatch({
-        type: CREATE_RECIPE,
-        payload: newRecipe.data,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-}
-
-// unir ruta /recipes?name=...
-export function filterByName(
+export const orderCountriesPopulation = (
   payload: string
-): ThunkAction<void, RootState, null, ActionTypes> {
+): ThunkAction<void, RootState, null, ActionTypes> => {
   return async (dispatch) => {
     try {
-      let recipe = await axios(`http://localhost:3001/recipes?name=${payload}`);
       return dispatch({
-        type: FILTER_BY_NAME,
-        payload: recipe.data,
+        type: ORDER_COUNTRIES_POPULATION,
+        payload: payload,
       });
     } catch (error) {
       console.log(error);
     }
   };
-}
+};
 
-// crear action para filtrar por diets
-export function filterByDiets(payload: DietType): ActionTypes {
-  return {
-    type: FILTER_BY_DIET,
-    payload: payload,
+export const orderCountriesName = (
+  payload: string
+): ThunkAction<void, RootState, null, ActionTypes> => {
+  return async (dispatch) => {
+    try {
+      return dispatch({
+        type: ORDER_COUNTRIES_NAME,
+        payload: payload,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
-}
+};
 
-// crear action para ordenar recipes
-export function orderRecipes(payload: RecipeType[] | string): ActionTypes {
-  return {
-    type: ORDER_RECIPES,
-    payload: payload,
+export const filterContinent = (
+  payload: string
+): ThunkAction<void, RootState, null, ActionTypes> => {
+  return async (dispatch) => {
+    try {
+      return dispatch({
+        type: FILTER_CONTINENT,
+        payload: payload,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
-}
+};
+
+export const filterActivity = (
+  payload: string
+): ThunkAction<void, RootState, null, ActionTypes> => {
+  return async (dispatch) => {
+    try {
+      return dispatch({
+        type: FILTER_ACTIVITY,
+        payload: payload,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const searchCountry = (
+  payload: string
+): ThunkAction<void, RootState, null, ActionTypes> => {
+  return async (dispatch) => {
+    try {
+      const countries = await axios.get(
+        "http://localhost:3001/countries?name=" + payload
+      );
+      return dispatch({
+        type: SEARCH_COUNTRY,
+        payload: countries.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};

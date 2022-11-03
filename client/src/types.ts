@@ -1,10 +1,12 @@
-export const GET_RECIPES = "GET_RECIPES";
-export const GET_TYPES_OF_DIETS = "GET_TYPES_OF_DIETS";
-export const GET_RECIPE_DETAIL = "GET_RECIPE_DETAIL";
-export const CREATE_RECIPE = "CREATE_RECIPE";
-export const FILTER_BY_NAME = "FILTER_BY_NAME";
-export const FILTER_BY_DIET = "FILTER_BY_DIET";
-export const ORDER_RECIPES = "ORDER_RECIPES";
+export const GET_COUNTRIES = "GET_COUNTRIES";
+export const GET_ACTIVITIES = "GET_ACTIVITIES";
+export const GET_COUNTRY_INFO = "GET_COUNTRY_INFO";
+export const CREATE_ACTIVITY = "CREATE_ACTIVITY";
+export const ORDER_COUNTRIES_POPULATION = "ORDER_COUNTRIES";
+export const ORDER_COUNTRIES_NAME = "ORDER_COUNTRIES_NAME";
+export const FILTER_CONTINENT = "FILTER_CONTINENT";
+export const FILTER_ACTIVITY = "FILTER_ACTIVITY";
+export const SEARCH_COUNTRY = "SEARCH_COUNTRY";
 
 export interface PaginationProps {
   pages: number;
@@ -14,7 +16,7 @@ export interface PaginationProps {
 
 export interface CardProps {
   name: string;
-  diets: DietType[];
+  diets: ActivityType[];
   image: any;
   id?: number;
 }
@@ -33,21 +35,26 @@ export interface InputsProps {
   name?: string;
 }
 
-export interface RecipeType {
-  id?: number;
+export interface CountryType {
+  id: string;
   name: string;
-  summary: string;
-  score: number;
-  health_score: number;
-  instructions: string;
-  image: any;
-  diets: DietType[];
+  flag: string;
+  continent: string;
+  capital: string;
+  region: string;
+  subregion: string;
+  area: string;
+  status: string;
+  population: string | number;
+  activities: ActivityType[];
 }
 
-export interface DietType {
-  id: number;
+export interface ActivityType {
+  id?: number;
   name: string;
-  recipe?: RecipeType[] | RecipeType;
+  difficulty: number;
+  duration: number;
+  season: string;
 }
 
 export interface AlertType {
@@ -56,52 +63,63 @@ export interface AlertType {
 }
 
 export interface StateType {
-  allRecipes: RecipeType[];
-  recipes: RecipeType[];
-  diets: DietType[];
-  recipeDetail: RecipeType | null;
+  countries: CountryType[];
+  activities: ActivityType[];
+  detail: CountryType | null;
 }
 
-interface GetRecipesAction {
-  type: typeof GET_RECIPES;
-  payload: RecipeType[];
+interface GetCountriesAction {
+  type: typeof GET_COUNTRIES;
+  payload: CountryType[];
 }
 
-interface GetDietsAction {
-  type: typeof GET_TYPES_OF_DIETS;
-  payload: DietType[];
+interface GetActivitiesAction {
+  type: typeof GET_ACTIVITIES;
+  payload: ActivityType[];
 }
 
-interface GetRecipeDetailAction {
-  type: typeof GET_RECIPE_DETAIL;
-  payload: RecipeType;
+interface GetCountryInfoAction {
+  type: typeof GET_COUNTRY_INFO;
+  payload: CountryType;
 }
 
-interface CreateRecipeAction {
-  type: typeof CREATE_RECIPE;
-  payload: RecipeType;
+interface CreateActivityAction {
+  type: typeof CREATE_ACTIVITY;
+  payload: CountryType;
 }
 
-interface FilterByNameAction {
-  type: typeof FILTER_BY_NAME;
-  payload: RecipeType[];
+interface OrderCountriesPopulationAction {
+  type: typeof ORDER_COUNTRIES_POPULATION;
+  payload: string;
 }
 
-interface FilterByDietAction {
-  type: typeof FILTER_BY_DIET;
-  payload: DietType;
+interface OrderCountriesNameAction {
+  type: typeof ORDER_COUNTRIES_NAME;
+  payload: string;
 }
 
-interface OrderRecipesAction {
-  type: typeof ORDER_RECIPES;
-  payload: RecipeType[] | string;
+interface FilterContinentAction {
+  type: typeof FILTER_CONTINENT;
+  payload: string;
+}
+
+interface FilterActivityAction {
+  type: typeof FILTER_ACTIVITY;
+  payload: string;
+}
+
+interface SearchCountryAction {
+  type: typeof SEARCH_COUNTRY;
+  payload: CountryType[];
 }
 
 export type ActionTypes =
-  | GetRecipesAction
-  | GetDietsAction
-  | GetRecipeDetailAction
-  | CreateRecipeAction
-  | FilterByNameAction
-  | FilterByDietAction
-  | OrderRecipesAction;
+  | GetCountriesAction
+  | GetActivitiesAction
+  | GetCountryInfoAction
+  | CreateActivityAction
+  | OrderCountriesPopulationAction
+  | OrderCountriesNameAction
+  | FilterContinentAction
+  | FilterActivityAction
+  | SearchCountryAction;
