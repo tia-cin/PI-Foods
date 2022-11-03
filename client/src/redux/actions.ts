@@ -125,9 +125,12 @@ export const filterContinent = (
 ): ThunkAction<void, RootState, null, ActionTypes> => {
   return async (dispatch) => {
     try {
+      const res = axios.get(
+        `http://localhost:3001/countries?filter=${payload}`
+      );
       return dispatch({
         type: FILTER_CONTINENT,
-        payload: payload,
+        payload: (await res).data,
       });
     } catch (error) {
       console.log(error);
@@ -140,9 +143,12 @@ export const filterActivity = (
 ): ThunkAction<void, RootState, null, ActionTypes> => {
   return async (dispatch) => {
     try {
+      const res = axios.get(
+        `http://localhost:3001/countries?filter=${payload}`
+      );
       return dispatch({
         type: FILTER_ACTIVITY,
-        payload: payload,
+        payload: (await res).data,
       });
     } catch (error) {
       console.log(error);

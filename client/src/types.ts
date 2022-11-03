@@ -108,12 +108,12 @@ interface OrderCountriesNameAction {
 
 interface FilterContinentAction {
   type: typeof FILTER_CONTINENT;
-  payload: string;
+  payload: CountryType[];
 }
 
 interface FilterActivityAction {
   type: typeof FILTER_ACTIVITY;
-  payload: string;
+  payload: CountryType[];
 }
 
 interface SearchCountryAction {

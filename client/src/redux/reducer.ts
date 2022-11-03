@@ -46,7 +46,7 @@ export const reducer = (
       };
     case ORDER_COUNTRIES_POPULATION:
       let sortedCountriesPopulation =
-        payload === "men"
+        payload === "min"
           ? state.countries.sort((a, b) => {
               if (a.population > b.population) return 1;
               if (b.population > a.population) return -1;
@@ -79,28 +79,14 @@ export const reducer = (
         countries: sortedCountriesName,
       };
     case FILTER_CONTINENT:
-      let filteredCountriesContinent =
-        payload === "All"
-          ? state.countries
-          : state.countries.filter((country) =>
-              country.continent.includes(payload)
-            );
       return {
         ...state,
-        countries: filteredCountriesContinent,
+        countries: payload,
       };
     case FILTER_ACTIVITY:
-      let filteredCountriesActivity =
-        payload === "All"
-          ? state.countries
-          : state.countries.filter(
-              (country) =>
-                country.activities &&
-                country.activities.map((a) => a.name).includes(payload)
-            );
       return {
         ...state,
-        countries: filteredCountriesActivity,
+        countries: payload,
       };
     case SEARCH_COUNTRY:
       return {
