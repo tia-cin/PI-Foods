@@ -18,9 +18,9 @@ const Home = () => {
 
   // paginado
   let [page, setPage] = useState(1); // comienzo de paginado
-  let recipesXPage = 12;
-  let lastPage = page * recipesXPage;
-  let firstPage = lastPage - recipesXPage;
+  let itemsXPage = 12;
+  let lastPage = page * itemsXPage;
+  let firstPage = lastPage - itemsXPage;
   let displayedItems = countries.slice(firstPage, lastPage);
 
   let handlePag = (pageNum: number) => {
@@ -39,7 +39,12 @@ const Home = () => {
         title="Explore the world's countries"
         subtitle={`There are ${countries.length} countries waiting for you`}
       />
-      <div className="grid grid-cols-4 gap-2">
+      <Pagination
+        pages={itemsXPage}
+        total={countries.length}
+        handlePag={handlePag}
+      />
+      <div className="grid grid-cols-4 gap-2 mt-5">
         {displayedItems.map((item, i) => (
           <Card key={i} {...item} />
         ))}

@@ -9,9 +9,14 @@ const Pagination: React.FC<PaginationProps> = ({ pages, total, handlePag }) => {
     if (i <= 15) pagesTotal.push(i);
   }
   return (
-    <div>
+    <div className="flex justify-between w-600 my-5">
       {pagesTotal.map((item, i) => (
-        <Button text={`${item}`} handle={() => handlePag(item)} key={i} />
+        <Button
+          text={`${item}`}
+          handle={() => handlePag(item)}
+          key={i}
+          style="w-10 mx-2 hover:bg-blue-700 transition-all"
+        />
       ))}
     </div>
   );
