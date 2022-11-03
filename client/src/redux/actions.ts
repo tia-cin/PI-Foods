@@ -18,13 +18,13 @@ import axios from "axios";
 export function getRecipes(): ThunkAction<void, RootState, null, ActionTypes> {
   return async (dispatch) => {
     try {
-      let recipes = await axios.get("http://localhost:3001/recipes");
-      let res = await recipes.data;
-      console.log(res);
-      // return dispatch({
-      //   type: GET_RECIPES,
-      //   payload: recipes.data,
-      // });
+      const recipes = await axios.get("http://localhost:3001/recipes");
+      const res = await recipes.data;
+      // console.log(res);
+      return dispatch({
+        type: GET_RECIPES,
+        payload: recipes.data,
+      });
     } catch (error) {
       console.log(error);
     }
@@ -35,7 +35,8 @@ export function getRecipes(): ThunkAction<void, RootState, null, ActionTypes> {
 export function getDiets(): ThunkAction<void, RootState, null, ActionTypes> {
   return async (dispatch) => {
     try {
-      let diets = await axios.get("http://localhost:3001/types");
+      const diets = await axios.get("http://localhost:3001/types");
+      const res = await diets.data;
       return dispatch({
         type: GET_TYPES_OF_DIETS,
         payload: diets.data,

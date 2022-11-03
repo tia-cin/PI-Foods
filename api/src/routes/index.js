@@ -7,11 +7,11 @@ const { API_KEY } = process.env;
 const router = Router();
 
 router.get("/recipes", async (req, res) => {
-  let { name } = req.query;
-  let allRecipes = await getAllInfo();
+  const { name } = req.query;
+  const allRecipes = await getAllInfo();
   try {
     if (name) {
-      let search = await allRecipes.filter((r) =>
+      const search = await allRecipes.filter((r) =>
         r.title.toLowerCase().includes(name)
       );
       if (search.length) return res.status(200).send(search);
@@ -24,10 +24,10 @@ router.get("/recipes", async (req, res) => {
 });
 
 router.get("/recipes/:id", async (req, res) => {
-  let { id } = req.params;
+  const { id } = req.params;
   try {
     if (id.length < 10) {
-      let recipe = await axios.get(
+      const recipe = await axios.get(
         `https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY}`
       );
       return res.json({
@@ -41,7 +41,7 @@ router.get("/recipes/:id", async (req, res) => {
         instructions: recipe.data.instructions,
       });
     } else {
-      let recipe = await Recipe.findByPk(id, { include: Diet });
+      const recipe = await Recipe.findByPk(id, { include: Diet });
       return res.json(recipe);
     }
   } catch (error) {
@@ -51,16 +51,16 @@ router.get("/recipes/:id", async (req, res) => {
 
 router.get("/types", async (req, res) => {
   try {
-    let infoApi = await getAllInfo();
-    let diets = infoApi.map((d) => d.diets);
-    let eachDiet = diets.map((d) => {
-      for (let i = 0; i < d.length; i++) return d[i];
-    });
-    eachDiet.forEach((d) => {
-      Diet.findOrCreate({ where: { name: d } });
+    const infoApi = await getAllInfo();
+    const diets = infoApi.map((d) => d.diets);
+    const eachDiet = diets
+      .flat(1)
+      .filter((val, i, curr) => curr.indexOf(val) === i);
+    eachDiet.map(async (d) => {
+      await Diet.findOrCreate({ where: { name: d } });
     });
 
-    let allDiets = await Diet.findAll();
+    const allDiets = await Diet.findAll();
     res.send(allDiets);
   } catch (error) {
     console.log(error);
@@ -68,10 +68,10 @@ router.get("/types", async (req, res) => {
 });
 
 router.post("/recipe", async (req, res) => {
-  let { name, summary, score, health_score, instructions, diets, img } =
+  const { name, summary, score, health_score, instructions, diets, img } =
     req.body;
   try {
-    let newRecipe = await Recipe.bulkCreate({
+    const newRecipe = await Recipe.bulkCreate({
       name,
       summary,
       score,
@@ -81,7 +81,7 @@ router.post("/recipe", async (req, res) => {
     });
 
     diets.map(async (d) => {
-      let recipeDiet = await Diet.findOne({
+      const recipeDiet = await Diet.findOne({
         where: { name: d },
       });
       await newRecipe.addDiet(recipeDiet);

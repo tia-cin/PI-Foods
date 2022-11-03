@@ -7,10 +7,10 @@ const { API_KEY } = process.env;
 
 // traer las recetas de la api
 const getApiInfo = async () => {
-  let apiUrl = await axios.get(
+  const apiUrl = await axios.get(
     `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&number=100`
   );
-  let apiData = await apiUrl.data.results;
+  const apiData = await apiUrl.data.results;
   apiData.map((r) => {
     return {
       id: r.id,
@@ -37,9 +37,9 @@ const dbInfo = async () => {
 };
 // unir info de db y api
 const getAllInfo = async () => {
-  let apiData = await getApiInfo();
-  let dbData = await dbInfo();
-  let data = [...apiData, ...dbData];
+  const apiData = await getApiInfo();
+  const dbData = await dbInfo();
+  const data = [...apiData, ...dbData];
   return data;
 };
 

@@ -10,7 +10,7 @@ function Landing() {
         <h1 className="text-7xl w-400 font-semibold">
           Welcome to{" "}
           <span className="font-bold text-neutral-green">Spoonacular</span>{" "}
-          Recipies!
+          Recipes!
         </h1>
         <Link to="/home">
           <Button text="Start" style="text-white mt-5 w-full " />
