@@ -7,6 +7,7 @@ export const ORDER_COUNTRIES_NAME = "ORDER_COUNTRIES_NAME";
 export const FILTER_CONTINENT = "FILTER_CONTINENT";
 export const FILTER_ACTIVITY = "FILTER_ACTIVITY";
 export const SEARCH_COUNTRY = "SEARCH_COUNTRY";
+export const GET_CONTINENTS = "GET_CONTINENTS";
 
 export interface TitlesProps {
   title: string;
@@ -72,6 +73,7 @@ export interface StateType {
   countries: CountryType[];
   activities: ActivityType[];
   detail: CountryType | null;
+  continents: String[];
 }
 
 interface GetCountriesAction {
@@ -119,6 +121,11 @@ interface SearchCountryAction {
   payload: CountryType[];
 }
 
+interface GetContinents {
+  type: typeof GET_CONTINENTS;
+  payload: String[];
+}
+
 export type ActionTypes =
   | GetCountriesAction
   | GetActivitiesAction
@@ -128,4 +135,5 @@ export type ActionTypes =
   | OrderCountriesNameAction
   | FilterContinentAction
   | FilterActivityAction
-  | SearchCountryAction;
+  | SearchCountryAction
+  | GetContinents;

@@ -10,12 +10,14 @@ import {
   SEARCH_COUNTRY,
   StateType,
   ActionTypes,
+  GET_CONTINENTS,
 } from "../types";
 
 const initialState: StateType = {
   countries: [],
   activities: [],
   detail: null,
+  continents: [],
 };
 
 export const reducer = (
@@ -104,6 +106,11 @@ export const reducer = (
       return {
         ...state,
         countries: payload,
+      };
+    case GET_CONTINENTS:
+      return {
+        ...state,
+        continents: payload,
       };
     default:
       return state;

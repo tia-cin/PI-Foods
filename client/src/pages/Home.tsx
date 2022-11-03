@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   filterActivity,
   filterContinent,
+  getContinents,
   getCountries,
   orderCountriesName,
   orderCountriesPopulation,
@@ -14,7 +15,7 @@ import { ActionTypes } from "../types";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const { countries } = useSelector((state: RootState) => state);
+  const { countries, continents } = useSelector((state: RootState) => state);
 
   // paginado
   let [page, setPage] = useState(1); // comienzo de paginado
@@ -31,7 +32,10 @@ const Home = () => {
 
   useEffect(() => {
     dispatch<any>(getCountries());
+    dispatch<any>(getContinents());
   }, [dispatch]);
+
+  console.log(continents);
 
   return (
     <div className="flex flex-col items-center justify-center">
@@ -39,6 +43,7 @@ const Home = () => {
         title="Explore the world's countries"
         subtitle={`There are ${countries.length} countries waiting for you`}
       />
+
       <Pagination
         pages={itemsXPage}
         total={countries.length}

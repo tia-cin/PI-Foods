@@ -11,6 +11,7 @@ import {
   ActionTypes,
   CountryType,
   ActivityType,
+  GET_CONTINENTS,
 } from "../types";
 import { ThunkAction } from "redux-thunk";
 import { RootState } from "./store";
@@ -160,6 +161,25 @@ export const searchCountry = (
       return dispatch({
         type: SEARCH_COUNTRY,
         payload: countries.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const getContinents = (): ThunkAction<
+  void,
+  RootState,
+  null,
+  ActionTypes
+> => {
+  return async (dispatch) => {
+    try {
+      const res = await axios.get("http://localhost:3001/continents");
+      return dispatch({
+        type: GET_CONTINENTS,
+        payload: res.data,
       });
     } catch (error) {
       console.log(error);

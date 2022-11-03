@@ -29,10 +29,10 @@ const api = async () => {
 
 const getCountries = async (req, res) => {
   const { name } = req.query;
-  let countries = await api();
+  const countries = await api();
 
   try {
-    let full = await Country.findAll({
+    const full = await Country.findAll({
       include: {
         model: Activity,
       },
@@ -45,7 +45,7 @@ const getCountries = async (req, res) => {
   }
 
   if (name) {
-    let countryName = await Country.findAll({
+    const countryName = await Country.findAll({
       where: {
         name: {
           [Sequelize.Op.iLike]: `%${name.toLowerCase()}%`,
@@ -56,7 +56,7 @@ const getCountries = async (req, res) => {
       ? res.status(200).send(countryName)
       : res.status(404).send("No country");
   } else {
-    let full = await Country.findAll({
+    const full = await Country.findAll({
       include: {
         model: Activity,
       },
@@ -66,8 +66,8 @@ const getCountries = async (req, res) => {
 };
 
 const getCountry = async (req, res) => {
-  let { id } = req.params;
-  let country = await Country.findByPk(id, {
+  const { id } = req.params;
+  const country = await Country.findByPk(id, {
     include: {
       model: Activity,
     },
@@ -76,7 +76,16 @@ const getCountry = async (req, res) => {
   else return res.send("No country");
 };
 
+const getContinents = async (req, res) => {
+  const data = await Country.findAll();
+  const continents = data
+    .map((d) => d.continent)
+    .filter((val, i, curr) => curr.indexOf(val) === i);
+  res.send(continents);
+};
+
 module.exports = {
   getCountries,
   getCountry,
+  getContinents,
 };
