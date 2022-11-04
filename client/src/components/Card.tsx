@@ -4,7 +4,7 @@ import { Button } from ".";
 
 const Card: React.FC<CardProps> = ({ name, activities, flag, id }) => {
   return (
-    <div className="text-transparent hover:text-[#191919] transition-all mx-3">
+    <div className="text-transparent hover:text-[#191919] hover:translate-x-4 hover:-translate-y-2 hover:scale-110 transition-all mx-5">
       <img
         src={flag}
         alt={name}

@@ -17,8 +17,7 @@ const Home = () => {
   const dispatch = useDispatch();
   const { countries, continents } = useSelector((state: RootState) => state);
 
-  // paginado
-  let [page, setPage] = useState(1); // comienzo de paginado
+  let [page, setPage] = useState(1);
   let itemsXPage = 12;
   let lastPage = page * itemsXPage;
   let firstPage = lastPage - itemsXPage;
@@ -27,8 +26,6 @@ const Home = () => {
   let handlePag = (pageNum: number) => {
     setPage(pageNum);
   };
-
-  console.log(displayedItems);
 
   useEffect(() => {
     dispatch<any>(getCountries());
