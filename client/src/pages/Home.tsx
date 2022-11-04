@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import {
   filterActivity,
   filterContinent,
+  getActivities,
   getContinents,
   getCountries,
   orderCountriesName,
   orderCountriesPopulation,
+  searchCountry,
 } from "../redux/actions"; // getRecipes
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../redux/store";
@@ -15,24 +17,26 @@ import { ActionTypes } from "../types";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const { countries, continents } = useSelector((state: RootState) => state);
+  const { countries, continents, activities } = useSelector(
+    (state: RootState) => state
+  );
+  const [filter, setFilter] = useState<string>("");
 
-  let [page, setPage] = useState(1);
-  let itemsXPage = 12;
-  let lastPage = page * itemsXPage;
-  let firstPage = lastPage - itemsXPage;
-  let displayedItems = countries.slice(firstPage, lastPage);
+  const [page, setPage] = useState<number>(1);
+  const itemsXPage = 12;
+  const lastPage = page * itemsXPage;
+  const firstPage = lastPage - itemsXPage;
+  const displayedItems = countries.slice(firstPage, lastPage);
 
-  let handlePag = (pageNum: number) => {
+  const handlePag = (pageNum: number) => {
     setPage(pageNum);
   };
 
   useEffect(() => {
     dispatch<any>(getCountries());
     dispatch<any>(getContinents());
+    dispatch<any>(getActivities());
   }, [dispatch]);
-
-  console.log(continents);
 
   return (
     <div className="flex flex-col items-center justify-center">
@@ -40,7 +44,31 @@ const Home = () => {
         title="Explore the world's countries"
         subtitle={`There are ${countries.length} countries waiting for you`}
       />
-
+      <div className="">
+        <Input text="Search" onChange={searchCountry} />
+        <div className="flex">
+          <Input
+            text="Filter by Continents"
+            values={continents}
+            onChange={filterContinent}
+          />
+          <Input
+            text="Filter by Activities"
+            values={activities}
+            onChange={filterActivity}
+          />
+          <Input
+            text="Order per Population"
+            values={["min", "max"]}
+            onChange={orderCountriesPopulation}
+          />
+          <Input
+            text="Order per Name"
+            values={["asc", "desc"]}
+            onChange={orderCountriesName}
+          />
+        </div>
+      </div>
       <Pagination
         pages={itemsXPage}
         total={countries.length}

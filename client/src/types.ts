@@ -34,10 +34,9 @@ export interface ButtonProps {
 }
 
 export interface InputsProps {
-  select?: boolean;
   text: string;
-  values: any;
-  onChange: () => void;
+  values?: any[] | string;
+  onChange: any;
   name?: string;
 }
 
