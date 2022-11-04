@@ -11,7 +11,7 @@ const Card: React.FC<CardProps> = ({ name, activities, flag, id }) => {
         className="w-200 h-150 object-cover rounded-2xl"
       />
       <p className="text-center font-semibold text-lg w-200 h-14">{name}</p>
-      <span>{activities.join(", ")}</span>
+      {/* <span>{activities.join(", ")}</span> */}
     </div>
   );
 };

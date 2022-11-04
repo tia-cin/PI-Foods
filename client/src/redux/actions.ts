@@ -128,6 +128,7 @@ export const filterContinent = (
       const res = axios.get(
         `http://localhost:3001/countries?filter=${payload}`
       );
+      console.log((await res).data);
       return dispatch({
         type: FILTER_CONTINENT,
         payload: (await res).data,

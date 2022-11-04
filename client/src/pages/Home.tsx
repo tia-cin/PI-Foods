@@ -52,28 +52,64 @@ const Home = () => {
             onChange={(e) => setSearch(e.target.value)}
           />
         </form>
-        <div className="flex">
-          <Input
-            text="Filter by Continents"
-            values={continents}
-            onChange={filterContinent}
-          />
-          <Input
-            text="Filter by Activities"
-            values={activities.map((a) => a.name)}
-            onChange={filterActivity}
-          />
-          <Input
-            text="Order per Population"
-            values={["min", "max"]}
-            onChange={orderCountriesPopulation}
-          />
-          <Input
-            text="Order per Name"
-            values={["asc", "desc"]}
-            onChange={orderCountriesName}
-          />
-        </div>
+        <form>
+          <div>
+            <label>Filter by Continents</label>
+            <select
+              onChange={(e) =>
+                dispatch<any>(filterContinent(`continent-${e.target.value}`))
+              }
+            >
+              {continents.map((c, i) => (
+                <option key={i} value={c}>
+                  {c}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label>Filter by Activities</label>
+            <select
+              onChange={(e) =>
+                dispatch<any>(filterActivity(`activity-${e.target.value}`))
+              }
+            >
+              {activities.map((c, i) => (
+                <option key={i} value={c.name}>
+                  {c.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label>Order per Population</label>
+            <select
+              onChange={(e) =>
+                dispatch<any>(orderCountriesPopulation(e.target.value))
+              }
+            >
+              {["min", "max"].map((c, i) => (
+                <option key={i} value={c}>
+                  {c}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label>Order per Name</label>
+            <select
+              onChange={(e) =>
+                dispatch<any>(orderCountriesName(e.target.value))
+              }
+            >
+              {["asc", "desc"].map((c, i) => (
+                <option key={i} value={c}>
+                  {c}
+                </option>
+              ))}
+            </select>
+          </div>
+        </form>
       </div>
       <Pagination
         pages={itemsXPage}
