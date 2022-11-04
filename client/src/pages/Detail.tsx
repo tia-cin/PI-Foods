@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { getCountryInfo } from "../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-import { Button, Titles } from "../components";
 
 const Detail = () => {
   const dispatch = useDispatch();
@@ -17,37 +16,75 @@ const Detail = () => {
   return (
     <div>
       {detail && (
-        <div>
-          <div className="flex justify-center">
+        <div className="p-5">
+          <div className="flex justify-around">
             <img
               src={detail.flag}
-              className="w-200 h-full object-cover rounded-xl"
+              className="w-500 h-full object-cover rounded-xl"
             />
-            <Titles title={detail.name} subtitle={detail.capital} />
+            <div className="w-600 ">
+              <p className="text-8xl font-bold">{detail.name}</p>
+              <p className="mt-5 text-5xl font-semibold">{detail.capital}</p>
+              <p className="mt-5 text-3xl font-medium">
+                Continent: {detail.continent}
+              </p>
+              <p className="mt-5 text-3xl font-medium capitalize">
+                Status: {detail.status}
+              </p>
+            </div>
           </div>
           <div className="flex justify-around">
-            <Titles title="Area" subtitle={detail.area} />
-            <Titles title="Continent" subtitle={detail.continent} />
-            <Titles title="Population" subtitle={String(detail.population)} />
-            <Titles title="Region" subtitle={detail.region} />
-            <Titles title="Subregion" subtitle={detail.subregion} />
-            <Titles title="Status" subtitle={detail.status} />
-          </div>
-          {detail.activities.length && (
             <div>
-              <Titles title="Activities" subtitle="" />
-              <div className="grid grid-cols-4">
-                {detail.activities.map((a, i) => (
-                  <div key={i}>
-                    <p>{a.name}</p>
-                    <p>{`${a.duration}${a.duration <= 30 ? "h" : "m"}`}</p>
-                    <input type="range" min="0" max="5" value={a.difficulty} />
-                    <p>Preferable to do on {a.season}</p>
-                  </div>
-                ))}
-              </div>
+              <p className="mt-5 text-2xl font-medium">
+                Area: {detail.area}km<sup>2</sup>
+              </p>
+              <p className="mt-5 text-2xl font-medium">
+                Population: {detail.population}
+              </p>
+              <p className="mt-5 text-2xl font-medium">
+                Region: {detail.region}
+              </p>
+              <p className="mt-5 text-2xl font-medium">
+                Subregion: {detail.subregion}
+              </p>
             </div>
-          )}
+            {detail.activities.length && (
+              <div>
+                <p className="mt-5 text-2xl font-medium">Activities:</p>
+                <div className="grid grid-cols-2">
+                  {detail.activities.map((a, i) => (
+                    <div
+                      key={i}
+                      className="bg-blue-400 rounded-xl p-2 m-2 w-300"
+                    >
+                      <div className="flex justify-between">
+                        <div>
+                          <p className="capitalize text-lg font-semibold">
+                            {a.name}
+                          </p>
+                          <p>Difficulty: </p>
+                        </div>
+                        <div>
+                          <p>
+                            Duration:{" "}
+                            {`${a.duration}${a.duration <= 30 ? "h" : "m"}`}
+                          </p>
+                          <p className="capitalize">Best Season: {a.season}</p>
+                        </div>
+                      </div>
+                      <input
+                        className="w-full"
+                        type="range"
+                        min="0"
+                        max="5"
+                        value={a.difficulty}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       )}
     </div>
