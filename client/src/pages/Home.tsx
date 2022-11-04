@@ -45,12 +45,15 @@ const Home = () => {
         subtitle={`There are ${countries.length} countries waiting for you`}
       />
       <div className="">
-        <form onSubmit={(e) => dispatch<any>(searchCountry(search))}>
-          <input
-            placeholder="Search"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            dispatch<any>(searchCountry(search));
+            setSearch("");
+          }}
+        >
+          <input value={search} onChange={(e) => setSearch(e.target.value)} />
+          <button type="submit">Search</button>
         </form>
         <form>
           <div>

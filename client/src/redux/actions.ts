@@ -60,7 +60,7 @@ export const getCountryInfo = (
 ): ThunkAction<void, RootState, null, ActionTypes> => {
   return (dispatch) => {
     axios
-      .get("http://localhost:3001/countries/" + id)
+      .get(`http://localhost:3001/countries/${id}`)
       .then((r) =>
         dispatch({
           type: GET_COUNTRY_INFO,
@@ -164,7 +164,7 @@ export const searchCountry = (
     try {
       console.log(payload);
       const countries = await axios.get(
-        "http://localhost:3001/countries?name=" + payload
+        `http://localhost:3001/countries?name=${payload}`
       );
       return dispatch({
         type: SEARCH_COUNTRY,
