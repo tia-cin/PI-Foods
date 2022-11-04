@@ -44,7 +44,7 @@ export const getActivities = (): ThunkAction<
 > => {
   return async (dispatch) => {
     try {
-      const activities = await axios.get("http://localhost:3001/activity");
+      const activities = await axios.get("http://localhost:3001/activities");
       return dispatch({
         type: GET_ACTIVITIES,
         payload: (await activities).data,
@@ -77,7 +77,7 @@ export const createActivity = (
   return async (dispatch) => {
     try {
       const newActivity = await axios.post(
-        "http://localhost:3001/activity",
+        "http://localhost:3001/activities",
         payload
       );
       return dispatch({

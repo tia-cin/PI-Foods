@@ -60,7 +60,7 @@ const Home = () => {
           />
           <Input
             text="Filter by Activities"
-            values={activities}
+            values={activities.map((a) => a.name)}
             onChange={filterActivity}
           />
           <Input

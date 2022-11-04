@@ -4,7 +4,7 @@ const { Sequelize } = require("sequelize");
 const getActivities = async (req, res) => {
   const activities = await Activity.findAll();
 
-  res.send(activities.lenght ? activities : { message: "No Activities yet!" });
+  res.send(activities);
 };
 
 const createActivity = async (req, res) => {

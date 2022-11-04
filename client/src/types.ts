@@ -35,7 +35,7 @@ export interface ButtonProps {
 
 export interface InputsProps {
   text: string;
-  values: any[];
+  values: Array<string>;
   onChange: any;
 }
 
@@ -71,7 +71,7 @@ export interface StateType {
   countries: CountryType[];
   activities: ActivityType[];
   detail: CountryType | null;
-  continents: String[];
+  continents: Array<string>;
 }
 
 interface GetCountriesAction {
@@ -121,7 +121,7 @@ interface SearchCountryAction {
 
 interface GetContinents {
   type: typeof GET_CONTINENTS;
-  payload: String[];
+  payload: Array<string>;
 }
 
 export type ActionTypes =
