@@ -66,6 +66,9 @@ const getCountries = async (req, res) => {
           [Sequelize.Op.iLike]: `%${name.toLowerCase()}%`,
         },
       },
+      include: {
+        model: Activity,
+      },
     });
     countryName.length
       ? res.status(200).send(countryName)

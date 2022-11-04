@@ -1,6 +1,12 @@
 const { Country, Activity } = require("../db");
 const { Sequelize } = require("sequelize");
 
+const getActivities = async (req, res) => {
+  const activities = await Activity.findAll();
+
+  res.send(activities.lenght ? activities : { message: "No Activities yet!" });
+};
+
 const createActivity = async (req, res) => {
   try {
     let { name, difficulty, duration, season, countries } = req.body;
@@ -24,4 +30,5 @@ const createActivity = async (req, res) => {
 
 module.exports = {
   createActivity,
+  getActivities,
 };

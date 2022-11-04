@@ -6,7 +6,7 @@ const { getContinents } = require("../controllers/country");
 const router = Router();
 
 router.use("/countries", Countries);
-router.use("/activity", Activity);
+router.use("/activities", Activity);
 router.get("/continents", getContinents);
 
 module.exports = router;
