@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { ChangeEventHandler, useEffect, useState } from "react";
 import {
   filterActivity,
   filterContinent,
@@ -20,7 +20,7 @@ const Home = () => {
   const { countries, continents, activities } = useSelector(
     (state: RootState) => state
   );
-  const [filter, setFilter] = useState<string>("");
+  const [search, setSearch] = useState<string>("");
 
   const [page, setPage] = useState<number>(1);
   const itemsXPage = 12;
@@ -45,7 +45,13 @@ const Home = () => {
         subtitle={`There are ${countries.length} countries waiting for you`}
       />
       <div className="">
-        <Input text="Search" onChange={searchCountry} />
+        <form onSubmit={(e) => dispatch<any>(searchCountry(search))}>
+          <input
+            placeholder="Search"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </form>
         <div className="flex">
           <Input
             text="Filter by Continents"

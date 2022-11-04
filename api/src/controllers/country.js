@@ -70,8 +70,7 @@ const getCountries = async (req, res) => {
     countryName.length
       ? res.status(200).send(countryName)
       : res.status(404).send("No country");
-  }
-  if (filter) {
+  } else if (filter) {
     const val = filter.split("-");
     switch (val[0]) {
       case "continent":

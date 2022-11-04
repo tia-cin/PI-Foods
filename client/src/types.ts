@@ -35,9 +35,8 @@ export interface ButtonProps {
 
 export interface InputsProps {
   text: string;
-  values?: any[] | string;
+  values: any[];
   onChange: any;
-  name?: string;
 }
 
 export interface CountryType {

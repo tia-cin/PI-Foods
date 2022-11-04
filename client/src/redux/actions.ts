@@ -23,13 +23,13 @@ export const getCountries = (): ThunkAction<
   null,
   ActionTypes
 > => {
-  return (dispatch) => {
+  return async (dispatch) => {
     axios
       .get("http://localhost:3001/countries")
-      .then((r) =>
+      .then(async (r) =>
         dispatch({
           type: GET_COUNTRIES,
-          payload: r.data,
+          payload: (await r).data,
         })
       )
       .catch((error) => console.log(error));
@@ -47,7 +47,7 @@ export const getActivities = (): ThunkAction<
       const activities = await axios.get("http://localhost:3001/activity");
       return dispatch({
         type: GET_ACTIVITIES,
-        payload: activities.data,
+        payload: (await activities).data,
       });
     } catch (error) {
       console.log(error);
@@ -161,12 +161,13 @@ export const searchCountry = (
 ): ThunkAction<void, RootState, null, ActionTypes> => {
   return async (dispatch) => {
     try {
+      console.log(payload);
       const countries = await axios.get(
         "http://localhost:3001/countries?name=" + payload
       );
       return dispatch({
         type: SEARCH_COUNTRY,
-        payload: countries.data,
+        payload: (await countries).data,
       });
     } catch (error) {
       console.log(error);
@@ -185,7 +186,7 @@ export const getContinents = (): ThunkAction<
       const res = await axios.get("http://localhost:3001/continents");
       return dispatch({
         type: GET_CONTINENTS,
-        payload: res.data,
+        payload: (await res).data,
       });
     } catch (error) {
       console.log(error);
