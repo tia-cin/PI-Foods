@@ -3,6 +3,13 @@ import { useParams } from "react-router-dom";
 import { getCountryInfo } from "../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
+import { GrLocationPin } from "react-icons/gr";
+import { IoPaperPlaneOutline } from "react-icons/io5";
+import unitedNations from "../assets/united-nations-png.png";
+import island from "../assets/island.png";
+import independent from "../assets/independent.png";
+import official from "../assets/official.png";
+import { Button } from "../components";
 
 const Detail = () => {
   const dispatch = useDispatch();
@@ -17,38 +24,90 @@ const Detail = () => {
     <div>
       {detail && (
         <div className="p-5">
-          <div className="flex justify-around">
-            <div className="w-600 ">
-              <p className="text-8xl font-bold">{detail.name}</p>
-              <p className="mt-5 text-5xl font-semibold">{detail.capital}</p>
-              <p className="mt-5 text-3xl font-medium">
-                Continent: {detail.continent}
-              </p>
-              <p className="mt-5 text-3xl font-medium capitalize">
-                Status: {detail.status}
-              </p>
+          <div className="flex flex-col justify-center items-center">
+            <div className="flex justify-between">
+              <div className="mr-5">
+                <p className="text-5xl font-bold flex">
+                  {detail.name}
+                  {detail.status.includes("officially") && (
+                    <img
+                      src={official}
+                      alt="officially-assigned"
+                      title="Officially Assigned"
+                      className="w-5 h-5 mt-2 ml-2"
+                    />
+                  )}
+                </p>
+                <p className="mt-3 text-lg text-gray-600 font-medium italic">
+                  {detail.official}
+                </p>
+                <p className="mt-5 text-2xl font-semibold flex items-center">
+                  <GrLocationPin title="Capital" />
+                  {detail.capital}
+                </p>
+                <div className="flex items-center justify-between">
+                  {detail.unMember && (
+                    <img
+                      src={unitedNations}
+                      alt="united-nations-logo"
+                      title="United Nations Member"
+                      className="w-12 h-12 mt-5 ml-2"
+                    />
+                  )}
+                  {detail.landlocked && (
+                    <img
+                      src={island}
+                      alt="island-image"
+                      title="LandLocked Country"
+                      className="w-12 h-12 mt-5 ml-2"
+                    />
+                  )}
+                  {detail.independent && (
+                    <img
+                      src={independent}
+                      alt="independence-image"
+                      title="Independent Nation"
+                      className="w-12 h-12 mt-5 ml-2"
+                    />
+                  )}
+                </div>
+              </div>
+              <div className="mr-5">
+                <p
+                  className="mt-5 text-xl font-medium flex items-center cursor-pointer"
+                  onClick={() => window.open(detail.map, "_blank")}
+                >
+                  Visit{" "}
+                  <IoPaperPlaneOutline className="translate-y-1 hover:translate-x-1 hover:-translate-y-1 transition-all" />
+                </p>
+                <p className="mt-5 text-xl font-medium">
+                  Continent: {detail.continent}
+                </p>
+                <p className="mt-5 text-xl font-medium">
+                  Region: {detail.region}
+                </p>
+                <p className="mt-5 text-xl font-medium">
+                  Subregion: {detail.subregion}
+                </p>
+              </div>
+              <div className="mr-5">
+                <p className="mt-5 text-xl font-medium">
+                  Area: {detail.area}km<sup>2</sup>
+                </p>
+                <p className="mt-5 text-xl font-medium">
+                  Population: {detail.population}
+                </p>
+                <p className="mt-5 text-xl font-medium">
+                  Timezone: {detail.timezone}
+                </p>
+              </div>
+
+              <img
+                src={detail.flag}
+                className="w-200 h-200 object-cover rounded-xl"
+              />
             </div>
-            <img
-              src={detail.flag}
-              className="w-500 h-full object-cover rounded-xl"
-            />
-          </div>
-          <div className="flex justify-around">
-            <div>
-              <p className="mt-5 text-2xl font-medium">
-                Area: {detail.area}km<sup>2</sup>
-              </p>
-              <p className="mt-5 text-2xl font-medium">
-                Population: {detail.population}
-              </p>
-              <p className="mt-5 text-2xl font-medium">
-                Region: {detail.region}
-              </p>
-              <p className="mt-5 text-2xl font-medium">
-                Subregion: {detail.subregion}
-              </p>
-            </div>
-            {detail.activities.length && (
+            {detail.activities.length > 0 ? (
               <div>
                 <p className="mt-5 text-2xl font-medium">Activities:</p>
                 <div className="grid grid-cols-2">
@@ -82,6 +141,20 @@ const Detail = () => {
                     </div>
                   ))}
                 </div>
+              </div>
+            ) : (
+              <div className="translate-y-44 flex flex-col">
+                <p className="text-2xl font-semibold">
+                  There's no activities yet!
+                </p>
+                <span className="mt-2 text-lg text-center text-gray-600 font-medium italic">
+                  Add them here
+                </span>
+                <Button
+                  text="Create Activity"
+                  style="mt-2 hover:bg-blue-700 transition-all drop-shadow-lg"
+                  handle={() => window.open("/create", "_self")}
+                />
               </div>
             )}
           </div>

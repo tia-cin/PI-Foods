@@ -42,6 +42,7 @@ export interface InputsProps {
 export interface CountryType {
   id: string;
   name: string;
+  official: string;
   flag: string;
   continent: string;
   capital: string;
@@ -51,6 +52,13 @@ export interface CountryType {
   status: string;
   population: string | number;
   activities: ActivityType[];
+  independent: boolean;
+  latitude: string;
+  longitude: string;
+  map: string;
+  timezone: string;
+  unMember: boolean;
+  landlocked: boolean;
 }
 
 export interface ActivityType {
