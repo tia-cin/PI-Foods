@@ -10,6 +10,7 @@ const api = async () => {
       apiUrl.data.map((c) => {
         return {
           name: c.name.common ? c.name.common : "No name",
+          official: c.name.official ? c.name.official : "No official name",
           id: c.cca3,
           flag: c.flags[0] ? c.flags[0] : "No flag",
           continent: c.continents ? c.continents[0] : "No continent",
@@ -17,8 +18,15 @@ const api = async () => {
           region: c.region ? c.region : "No region",
           subregion: c.subregion ? c.subregion : "No subregion",
           area: c.area ? c.area : "No area",
-          population: c.population,
           status: c.status ? c.status : "No status",
+          population: c.population,
+          independent: c.independent ? c.independent : false,
+          latitude: c.latlng[0],
+          longitude: c.latlng[0],
+          map: c.maps.googleMaps,
+          timezone: c.timezones[0],
+          unMember: c.unMember,
+          landlocked: c.landlocked,
         };
       });
     return allCountries ? allCountries : new Error("Wrong api call");
@@ -27,17 +35,8 @@ const api = async () => {
   }
 };
 
-const getContinents = async (req, res) => {
-  const data = await Country.findAll();
-  const continents = await data
-    .map((d) => d.continent)
-    .filter((val, i, curr) => curr.indexOf(val) === i);
-  res.send(continents);
-  return continents;
-};
-
 const getCountries = async (req, res) => {
-  const { name, filter, order } = req.query;
+  const { name, filter } = req.query;
   const apiRes = await api();
 
   try {
@@ -107,6 +106,15 @@ const getCountry = async (req, res) => {
   });
   if (country) return res.status(200).send(country);
   else return res.send("No country");
+};
+
+const getContinents = async (req, res) => {
+  const data = await Country.findAll();
+  const continents = await data
+    .map((d) => d.continent)
+    .filter((val, i, curr) => curr.indexOf(val) === i);
+  res.send(continents);
+  return continents;
 };
 
 module.exports = {

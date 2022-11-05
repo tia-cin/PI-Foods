@@ -6,6 +6,10 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    official: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     id: {
       type: DataTypes.STRING,
       primaryKey: true,
@@ -41,6 +45,34 @@ module.exports = (sequelize) => {
     },
     population: {
       type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    independent: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+    },
+    latitude: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    longitude: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    map: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    timezone: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    unMember: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+    },
+    landlocked: {
+      type: DataTypes.BOOLEAN,
       allowNull: false,
     },
   });
