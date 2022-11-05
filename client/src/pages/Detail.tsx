@@ -18,10 +18,6 @@ const Detail = () => {
       {detail && (
         <div className="p-5">
           <div className="flex justify-around">
-            <img
-              src={detail.flag}
-              className="w-500 h-full object-cover rounded-xl"
-            />
             <div className="w-600 ">
               <p className="text-8xl font-bold">{detail.name}</p>
               <p className="mt-5 text-5xl font-semibold">{detail.capital}</p>
@@ -32,6 +28,10 @@ const Detail = () => {
                 Status: {detail.status}
               </p>
             </div>
+            <img
+              src={detail.flag}
+              className="w-500 h-full object-cover rounded-xl"
+            />
           </div>
           <div className="flex justify-around">
             <div>
