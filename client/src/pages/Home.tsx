@@ -39,30 +39,31 @@ const Home = () => {
   }, [dispatch]);
 
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="p-5">
       <Titles
         title="Explore the world's countries"
         subtitle={`There are ${countries.length} countries waiting for you`}
       />
-      <div className="">
+      <div className="flex justify-around">
         <form
           onSubmit={(e) => {
             e.preventDefault();
             dispatch<any>(searchCountry(search));
             setSearch("");
           }}
+          className="flex"
         >
           <input value={search} onChange={(e) => setSearch(e.target.value)} />
           <button type="submit">Search</button>
         </form>
-        <form>
+        <form className="flex">
           <div>
-            <label>Filter by Continents</label>
             <select
               onChange={(e) =>
                 dispatch<any>(filterContinent(`continent-${e.target.value}`))
               }
             >
+              <option selected>Filter by Continents</option>
               {continents.map((c, i) => (
                 <option key={i} value={c}>
                   {c}
@@ -71,12 +72,12 @@ const Home = () => {
             </select>
           </div>
           <div>
-            <label>Filter by Activities</label>
             <select
               onChange={(e) =>
                 dispatch<any>(filterActivity(`activity-${e.target.value}`))
               }
             >
+              <option selected>Filter by Activities</option>
               {activities.map((c, i) => (
                 <option key={i} value={c.name}>
                   {c.name}
@@ -85,12 +86,12 @@ const Home = () => {
             </select>
           </div>
           <div>
-            <label>Order per Population</label>
             <select
               onChange={(e) =>
                 dispatch<any>(orderCountriesPopulation(e.target.value))
               }
             >
+              <option selected>Order per Population</option>
               {["min", "max"].map((c, i) => (
                 <option key={i} value={c}>
                   {c}
@@ -99,12 +100,12 @@ const Home = () => {
             </select>
           </div>
           <div>
-            <label>Order per Name</label>
             <select
               onChange={(e) =>
                 dispatch<any>(orderCountriesName(e.target.value))
               }
             >
+              <option selected>Order per Name</option>
               {["asc", "desc"].map((c, i) => (
                 <option key={i} value={c}>
                   {c}
@@ -114,15 +115,18 @@ const Home = () => {
           </div>
         </form>
       </div>
-      <Pagination
-        pages={itemsXPage}
-        total={countries.length}
-        handlePag={handlePag}
-      />
-      <div className="grid grid-cols-4 gap-2 mt-5">
-        {displayedItems.map((item, i) => (
-          <Card key={i} {...item} />
-        ))}
+      <div className="flex flex-col justify-center items-center">
+        <Pagination
+          current={page}
+          pages={itemsXPage}
+          total={countries.length}
+          handlePag={handlePag}
+        />
+        <div className="grid grid-cols-4 gap-2 mt-5 ml-16">
+          {displayedItems.map((item, i) => (
+            <Card key={i} {...item} />
+          ))}
+        </div>
       </div>
     </div>
   );

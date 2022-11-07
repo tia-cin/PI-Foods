@@ -15,6 +15,7 @@ export interface TitlesProps {
 }
 
 export interface PaginationProps {
+  current: number;
   pages: number;
   total: number;
   handlePag: (pageNum: number) => void;
