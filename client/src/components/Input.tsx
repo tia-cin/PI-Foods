@@ -31,9 +31,11 @@ export const Select: React.FC<SelectProps> = ({ onChange, name, values }) => (
       name={name}
       onChange={onChange}
     >
-      <option selected>Choose a Season</option>
+      <option selected>Choose an Option</option>
       {values.map((item, i) => (
-        <option key={i}>{item}</option>
+        <option key={i} className="capitalize">
+          {item}
+        </option>
       ))}
     </select>
   </div>

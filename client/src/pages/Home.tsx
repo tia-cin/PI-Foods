@@ -11,7 +11,7 @@ import {
 } from "../redux/actions";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../redux/store";
-import { Button, Card, Input, Pagination, Titles } from "../components";
+import { Button, Card, Input, Pagination, Select, Titles } from "../components";
 import { AiOutlineSearch, AiOutlineReload } from "react-icons/ai";
 
 const Home = () => {
@@ -20,9 +20,18 @@ const Home = () => {
     (state: RootState) => state
   );
   const [search, setSearch] = useState<string>("");
+  const handleSearchChange = (e: any) => setSearch(e.target.value);
+  const handleFilterContinents = (e: any) =>
+    dispatch<any>(filterContinent(`continent-${e.target.value}`));
+  const handleFilterActivities = (e: any) =>
+    dispatch<any>(filterActivity(`activity-${e.target.value}`));
+  const handleOrderPopulation = (e: any) =>
+    dispatch<any>(orderCountriesPopulation(e.target.value));
+  const handleOrderPerName = (e: any) =>
+    dispatch<any>(orderCountriesName(e.target.value));
 
   const [page, setPage] = useState<number>(1);
-  const itemsXPage = 12;
+  const itemsXPage = 15;
   const lastPage = page * itemsXPage;
   const firstPage = lastPage - itemsXPage;
   const displayedItems = countries.slice(firstPage, lastPage);
@@ -38,117 +47,72 @@ const Home = () => {
   }, [dispatch]);
 
   return (
-    <div className="p-5 mt-5">
-      <Titles
-        title="Explore the world's countries"
-        subtitle={`There are ${countries.length} countries waiting for you`}
-      />
-
-      <div className="flex justify-evenly my-5 mt-10">
-        <button
-          className="bg-gray-200 rounded-full px-3 hover:bg-gray-300"
-          onClick={() => dispatch<any>(getCountries())}
-        >
-          <AiOutlineReload />
-        </button>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            dispatch<any>(searchCountry(search));
-            setSearch("");
-          }}
-          className="flex bg-gray-200 rounded-lg p-2"
-        >
-          <input
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search"
-            className="bg-transparent focus:text-gray-700 focus:border-blue-700 focus:outline-none"
-          />
-          <button type="submit">
-            <AiOutlineSearch className="text-xl" />
-          </button>
-        </form>
-        <form className="flex">
-          <div className="bg-gray-200 rounded-lg p-2 mx-1">
-            <select
-              onChange={(e) =>
-                dispatch<any>(filterContinent(`continent-${e.target.value}`))
-              }
-              className="bg-transparent"
-            >
-              <option selected>Filter by Continents</option>
-              {continents.map((c, i) => (
-                <option key={i} value={c}>
-                  {c}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="bg-gray-200 rounded-lg p-2 mx-1 hover:bg-gray-300">
-            <select
-              onChange={(e) =>
-                dispatch<any>(filterActivity(`activity-${e.target.value}`))
-              }
-              className="bg-transparent"
-            >
-              <option selected>Filter by Activities</option>
-              {activities.map((c, i) => (
-                <option key={i} value={c.name}>
-                  {c.name}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="bg-gray-200 rounded-lg p-2 mx-1">
-            <select
-              onChange={(e) =>
-                dispatch<any>(orderCountriesPopulation(e.target.value))
-              }
-              className="bg-transparent"
-            >
-              <option selected>Order per Population</option>
-              {["min", "max"].map((c, i) => (
-                <option key={i} value={c} className="capitalize">
-                  {c}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="bg-gray-200 rounded-lg p-2 mx-1">
-            <select
-              onChange={(e) =>
-                dispatch<any>(orderCountriesName(e.target.value))
-              }
-              className="bg-transparent"
-            >
-              <option selected>Order per Name</option>
-              {["asc", "desc"].map((c, i) => (
-                <option key={i} value={c} className="capitalize">
-                  {c}
-                </option>
-              ))}
-            </select>
-          </div>
-        </form>
+    <div className="p-5 mt-5 overflow-hidden">
+      <div className="flex items-center justify-center translate-x-20 ">
+        <Titles
+          title="Explore the world's countries"
+          subtitle={`There are ${countries.length} countries waiting for you`}
+        />
         <Button
           text="Create Activity"
-          style="px-2"
+          style="px-2 translate-x-80"
           handle={() => window.open("/create", "_self")}
         />
       </div>
+      <div className="flex flex-col justify-evenly my-5 mt-10">
+        <div className="flex justify-between flex-row-reverse">
+          <button
+            className="bg-gray-200 rounded-full px-5 text-2xl hover:bg-gray-300"
+            onClick={() => dispatch<any>(getCountries())}
+            title="Reset countries"
+          >
+            <AiOutlineReload />
+          </button>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              dispatch<any>(searchCountry(search));
+              setSearch("");
+            }}
+          >
+            <Input name="search" value={search} onChange={handleSearchChange} />
+          </form>{" "}
+        </div>
+        <form className="flex justify-between">
+          <Select
+            onChange={handleFilterContinents}
+            name="Filter by Continents"
+            values={continents}
+          />
+          <Select
+            onChange={handleFilterActivities}
+            name="Filter by Activities"
+            values={activities.map((a) => a.name)}
+          />
+          <Select
+            onChange={handleOrderPopulation}
+            values={["min", "max"]}
+            name="Order per Population"
+          />
+          <Select
+            name="Order per Name"
+            values={["asc", "desc"]}
+            onChange={handleOrderPerName}
+          />
+        </form>
+      </div>
       <div className="flex flex-col items-center">
+        <div className="grid grid-cols-5 gap-x-20 mt-5 ml-16">
+          {displayedItems.map((item, i) => (
+            <Card key={i} {...item} />
+          ))}
+        </div>
         <Pagination
           current={page}
           pages={itemsXPage}
           total={countries.length}
           handlePag={handlePag}
         />
-        <div className="grid grid-cols-4 gap-x-20 mt-5 ml-16">
-          {displayedItems.map((item, i) => (
-            <Card key={i} {...item} />
-          ))}
-        </div>
       </div>
     </div>
   );

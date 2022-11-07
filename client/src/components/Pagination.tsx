@@ -9,7 +9,7 @@ const Pagination: React.FC<PaginationProps> = ({
   handlePag,
 }) => {
   const pagesTotal = [];
-  const displayed = Math.ceil(total * pages);
+  const displayed = Math.ceil(total / pages);
   for (let i = 1; i < displayed; i++) {
     if (i <= pages) pagesTotal.push(i);
   }
