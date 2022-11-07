@@ -76,7 +76,7 @@ export interface ActivityType {
   difficulty: number;
   duration: number;
   season: string;
-  countries: CountryType[];
+  countries: CountryType[] | Array<string>;
 }
 
 export interface AlertType {

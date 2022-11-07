@@ -52,6 +52,13 @@ const Create: React.FC = () => {
     );
   };
 
+  const handleCountries = (e: any) => {
+    setInput({
+      ...input,
+      countries: [...input.countries, e.target.value],
+    });
+  };
+
   const handleSubmit = (e: any) => {
     e.preventDefault();
     dispatch<any>(createActivity(input));
@@ -108,9 +115,14 @@ const Create: React.FC = () => {
         <div className="mx-10">
           <Select
             name="countries"
-            onChange={handleChange}
+            onChange={handleCountries}
             values={countries.map((c) => c.id)}
           />
+          <div>
+            {input.countries.map((item, i) => (
+              <p key={i}>{typeof item === "string" && item}</p>
+            ))}
+          </div>
         </div>
       </form>
       <Button text="Create Activity" handle={handleSubmit} style="px-2" />
