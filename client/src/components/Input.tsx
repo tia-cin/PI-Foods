@@ -9,7 +9,7 @@ export const Input: React.FC<InputsProps> = ({
   props,
 }) => {
   return (
-    <div>
+    <div className="mb-5">
       <label className="mx-2 font-medium text-lg capitalize">{name}</label>
       <input
         type={type ? type : "text"}
@@ -24,7 +24,7 @@ export const Input: React.FC<InputsProps> = ({
 };
 
 export const Select: React.FC<SelectProps> = ({ onChange, name, values }) => (
-  <div>
+  <div className="mb-5">
     <label className="mx-2 font-medium text-lg capitalize">{name}</label>
     <select
       className="w-full bg-gray-200 p-2 rounded-lg"

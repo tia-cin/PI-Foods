@@ -71,36 +71,47 @@ const Create: React.FC = () => {
   }, [dispatch]);
 
   return (
-    <div className="flex flex-col items-center p-5">
-      <Titles
-        title="Create Touristic Activities"
-        subtitle="Complete the form to add a new activity"
-      />
-      <form onSubmit={handleSubmit} className="my-10">
-        <Input name="name" value={input.name} onChange={handleChange} />
-        <Input
-          name="difficulty"
-          type="range"
-          props={{ max: 5, min: 1 }}
-          value={input.difficulty}
-          onChange={handleChange}
+    <div className="overflow-hidden flex flex-col items-center p-5">
+      <div className="flex items-center justify-center translate-x-20 ">
+        <Titles
+          title="Create Touristic Activities"
+          subtitle="Complete the form to add a new activity"
         />
-        <Input
-          name="duration"
-          type="number"
-          onChange={handleChange}
-          value={input.duration}
+        <Button
+          text="Go Back Home"
+          style="px-2 translate-x-80"
+          handle={() => window.open("/home", "_self")}
         />
-        <Select
-          name="season"
-          onChange={handleChange}
-          values={["Summer", "Spring", "Winter", "Autumn"]}
-        />
-        <Select
-          name="countries"
-          onChange={handleChange}
-          values={countries.map((c) => c.id)}
-        />
+      </div>
+      <form onSubmit={handleSubmit} className="my-10 flex">
+        <div className="mx-10">
+          <Input name="name" value={input.name} onChange={handleChange} />
+          <Input
+            name="difficulty"
+            type="range"
+            props={{ max: 5, min: 1 }}
+            value={input.difficulty}
+            onChange={handleChange}
+          />
+          <Input
+            name="duration"
+            type="number"
+            onChange={handleChange}
+            value={input.duration}
+          />
+          <Select
+            name="season"
+            onChange={handleChange}
+            values={["Summer", "Spring", "Winter", "Autumn"]}
+          />
+        </div>
+        <div className="mx-10">
+          <Select
+            name="countries"
+            onChange={handleChange}
+            values={countries.map((c) => c.id)}
+          />
+        </div>
       </form>
       <Button text="Create Activity" handle={handleSubmit} style="px-2" />
     </div>
