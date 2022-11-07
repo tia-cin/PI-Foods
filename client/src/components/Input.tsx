@@ -1,25 +1,40 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { InputsProps } from "../types";
+import React from "react";
+import { InputsProps, SelectProps } from "../types";
 
-const Input: React.FC<InputsProps> = ({ text, values, onChange }) => {
-  const dispatch = useDispatch();
-  const [select, setSelect] = useState<string>("");
+export const Input: React.FC<InputsProps> = ({
+  name,
+  type,
+  value,
+  onChange,
+  props,
+}) => {
   return (
-    <div className="flex flex-col w-40 mr-5">
-      <label className="font-medium text-base">{text}</label>
-      <select
-        onSubmit={() => dispatch<any>(onChange(select))}
-        onChange={(e) => setSelect(e.target.value)}
-      >
-        {values.map((val: string, i: number) => (
-          <option key={i} value={val}>
-            {val}
-          </option>
-        ))}
-      </select>
+    <div>
+      <label className="mx-2 font-medium text-lg capitalize">{name}</label>
+      <input
+        type={type ? type : "text"}
+        className="bg-gray-200 p-2 rounded-lg w-full"
+        onChange={onChange}
+        value={value}
+        name={name}
+        {...props}
+      />
     </div>
   );
 };
 
-export default Input;
+export const Select: React.FC<SelectProps> = ({ onChange, name, values }) => (
+  <div>
+    <label className="mx-2 font-medium text-lg capitalize">{name}</label>
+    <select
+      className="w-full bg-gray-200 p-2 rounded-lg"
+      name={name}
+      onChange={onChange}
+    >
+      <option selected>Choose a Season</option>
+      {values.map((item, i) => (
+        <option key={i}>{item}</option>
+      ))}
+    </select>
+  </div>
+);

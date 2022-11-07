@@ -3,7 +3,7 @@ import { createActivity, getCountries } from "../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { AlertType, ActivityType } from "../types";
-import { Button, Input, Titles } from "../components";
+import { Button, Input, Select, Titles } from "../components";
 
 const Create: React.FC = () => {
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ const Create: React.FC = () => {
     countries: [],
   });
 
-  let validation = (item: any) => {
+  const validation = (item: any) => {
     if (!input.name) {
       setError({ text: "Name is requided!", type: "Error" });
     } else if (!input.difficulty) {
@@ -39,7 +39,7 @@ const Create: React.FC = () => {
     return error;
   };
 
-  let handleChange = (e: any) => {
+  const handleChange = (e: any) => {
     setInput({
       ...input,
       [e.target.name]: e.target.value,
@@ -52,16 +52,7 @@ const Create: React.FC = () => {
     );
   };
 
-  let handleCheckBox = (e: any) => {
-    if (e.target.checked) {
-      setInput({
-        ...input,
-        countries: [...input.countries, e.target.value],
-      });
-    }
-  };
-
-  let handleSubmit = (e: any) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
     dispatch<any>(createActivity(input));
     setInput({
@@ -78,6 +69,7 @@ const Create: React.FC = () => {
   useEffect(() => {
     dispatch<any>(getCountries());
   }, [dispatch]);
+
   return (
     <div className="flex flex-col items-center p-5">
       <Titles
@@ -85,61 +77,30 @@ const Create: React.FC = () => {
         subtitle="Complete the form to add a new activity"
       />
       <form onSubmit={handleSubmit} className="my-10">
-        <div>
-          <label className="mx-2 font-medium text-lg">Name</label>
-          <input
-            className="bg-gray-200 p-2 rounded-lg w-full"
-            onChange={handleChange}
-            value={input.name}
-            name="name"
-          />
-        </div>
-        <div>
-          <label className="mx-2 font-medium text-lg">Difficulty</label>
-          <input
-            className="bg-gray-200 p-2 rounded-lg w-full"
-            type="range"
-            min={1}
-            max={5}
-            onChange={handleChange}
-            value={input.difficulty}
-            name="difficulty"
-          />
-        </div>
-        <div>
-          <label className="mx-2 font-medium text-lg">Duration</label>
-          <input
-            className="bg-gray-200 p-2 rounded-lg w-full"
-            placeholder="Duration"
-            onChange={handleChange}
-            type="number"
-            value={input.duration}
-            name="duration"
-          />
-        </div>
-        <div>
-          <label className="mx-2 font-medium text-lg">Season</label>
-          <select
-            className="w-full bg-gray-200 p-2 rounded-lg"
-            name="season"
-            onChange={handleChange}
-          >
-            <option selected>Choose a Season</option>
-            {["Summer", "Spring", "Winter", "Autumn"].map((item, i) => (
-              <option key={i}>{item}</option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label className="mx-2 font-medium text-lg">Select Countries</label>
-          <select className="w-full bg-gray-200 p-2 rounded-lg">
-            {countries.map((item, i) => (
-              <option key={i} value={item.id}>
-                {item.name}
-              </option>
-            ))}
-          </select>
-        </div>
+        <Input name="name" value={input.name} onChange={handleChange} />
+        <Input
+          name="difficulty"
+          type="range"
+          props={{ max: 5, min: 1 }}
+          value={input.difficulty}
+          onChange={handleChange}
+        />
+        <Input
+          name="duration"
+          type="number"
+          onChange={handleChange}
+          value={input.duration}
+        />
+        <Select
+          name="season"
+          onChange={handleChange}
+          values={["Summer", "Spring", "Winter", "Autumn"]}
+        />
+        <Select
+          name="countries"
+          onChange={handleChange}
+          values={countries.map((c) => c.id)}
+        />
       </form>
       <Button text="Create Activity" handle={handleSubmit} style="px-2" />
     </div>

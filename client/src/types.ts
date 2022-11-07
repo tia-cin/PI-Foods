@@ -35,9 +35,17 @@ export interface ButtonProps {
 }
 
 export interface InputsProps {
-  text: string;
-  values: Array<string>;
+  type?: string;
+  value: any;
   onChange: any;
+  name: string;
+  props?: any;
+}
+
+export interface SelectProps {
+  values: Array<any>;
+  onChange: any;
+  name: string;
 }
 
 export interface CountryType {
