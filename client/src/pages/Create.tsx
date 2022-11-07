@@ -84,66 +84,61 @@ const Create: React.FC = () => {
         title="Create Touristic Activities"
         subtitle="Complete the form to add a new activity"
       />
-      <form onSubmit={handleSubmit} className="flex justify-around my-10">
-        <div className="flex flex-col justify-between mr-10">
-          <div>
-            <label className="mx-2 font-medium text-lg">Name</label>
-            <input
-              className="bg-gray-200 p-2 rounded-lg w-full"
-              onChange={handleChange}
-              value={input.name}
-              name="name"
-            />
-          </div>
-          <div>
-            <label className="mx-2 font-medium text-lg">Difficulty</label>
-            <input
-              className="bg-gray-200 p-2 rounded-lg w-full"
-              type="range"
-              min={1}
-              max={5}
-              onChange={handleChange}
-              value={input.difficulty}
-              name="difficulty"
-            />
-          </div>
-          <div>
-            <label className="mx-2 font-medium text-lg">Duration</label>
-            <input
-              className="bg-gray-200 p-2 rounded-lg w-full"
-              placeholder="Duration"
-              onChange={handleChange}
-              type="number"
-              value={input.duration}
-              name="duration"
-            />
-          </div>
-          <div>
-            <label className="mx-2 font-medium text-lg">Season</label>
-            <select
-              className="w-full bg-gray-200 p-2 rounded-lg"
-              name="season"
-              onChange={handleChange}
-            >
-              <option selected>Choose a Season</option>
-              {["Summer", "Spring", "Winter", "Autumn"].map((item, i) => (
-                <option key={i}>{item}</option>
-              ))}
-            </select>
-          </div>
+      <form onSubmit={handleSubmit} className="my-10">
+        <div>
+          <label className="mx-2 font-medium text-lg">Name</label>
+          <input
+            className="bg-gray-200 p-2 rounded-lg w-full"
+            onChange={handleChange}
+            value={input.name}
+            name="name"
+          />
         </div>
-        <div className="h-400 overflow-auto ml-10">
-          {countries.map((item, i) => (
-            <div>
-              <label>{item.name}</label>
-              <input
-                key={i}
-                type="checkbox"
-                value={item.id}
-                onChange={handleCheckBox}
-              />
-            </div>
-          ))}
+        <div>
+          <label className="mx-2 font-medium text-lg">Difficulty</label>
+          <input
+            className="bg-gray-200 p-2 rounded-lg w-full"
+            type="range"
+            min={1}
+            max={5}
+            onChange={handleChange}
+            value={input.difficulty}
+            name="difficulty"
+          />
+        </div>
+        <div>
+          <label className="mx-2 font-medium text-lg">Duration</label>
+          <input
+            className="bg-gray-200 p-2 rounded-lg w-full"
+            placeholder="Duration"
+            onChange={handleChange}
+            type="number"
+            value={input.duration}
+            name="duration"
+          />
+        </div>
+        <div>
+          <label className="mx-2 font-medium text-lg">Season</label>
+          <select
+            className="w-full bg-gray-200 p-2 rounded-lg"
+            name="season"
+            onChange={handleChange}
+          >
+            <option selected>Choose a Season</option>
+            {["Summer", "Spring", "Winter", "Autumn"].map((item, i) => (
+              <option key={i}>{item}</option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label className="mx-2 font-medium text-lg">Select Countries</label>
+          <select className="w-full bg-gray-200 p-2 rounded-lg">
+            {countries.map((item, i) => (
+              <option key={i} value={item.id}>
+                {item.name}
+              </option>
+            ))}
+          </select>
         </div>
       </form>
       <Button text="Create Activity" handle={handleSubmit} style="px-2" />
