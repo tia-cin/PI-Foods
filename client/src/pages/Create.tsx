@@ -3,9 +3,9 @@ import { createActivity, getCountries } from "../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { AlertType, ActivityType } from "../types";
-import { Button, Input } from "../components";
+import { Button, Input, Titles } from "../components";
 
-const Create = () => {
+const Create: React.FC = () => {
   const dispatch = useDispatch();
   const countries = useSelector((state: RootState) => state.countries);
   const [error, setError] = useState<AlertType>({ text: "", type: "" });
@@ -77,14 +77,57 @@ const Create = () => {
   }, [dispatch]);
   return (
     <div>
-      {/* <div>
-        <Button />
-        <h1>Create your Recipe</h1>
-      </div>
-      <form>
-        <Input />
-        <Button />
-      </form> */}
+      <Titles
+        title="Create Touristic Activities"
+        subtitle="Complete the form to add a new activity"
+      />
+      <form onSubmit={handleSubmit}>
+        <div>
+          <input
+            placeholder="Name"
+            onChange={handleChange}
+            value={input.name}
+          />
+        </div>
+        <div>
+          <input
+            placeholder="Difficulty"
+            type="number"
+            onChange={handleChange}
+            value={input.difficulty}
+          />
+        </div>
+        <div>
+          <input
+            placeholder="Duration"
+            onChange={handleChange}
+            type="number"
+            value={input.duration}
+          />
+        </div>
+        <div>
+          <select>
+            <option selected>Season</option>
+            {["Summer", "Spring", "Winter", "Autumn"].map((item, i) => (
+              <option key={i}>{item}</option>
+            ))}
+          </select>
+        </div>
+        <div>
+          {countries.map((item, i) => (
+            <div>
+              <label>{item.name}</label>
+              <input
+                key={i}
+                type="checkbox"
+                value={item.name}
+                onChange={handleCheckBox}
+              />
+            </div>
+          ))}
+        </div>
+        <Button text="Create Activity" handle={handleSubmit} />
+      </form>
     </div>
   );
 };
