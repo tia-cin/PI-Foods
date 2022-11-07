@@ -11,7 +11,7 @@ const Pagination: React.FC<PaginationProps> = ({
   const pagesTotal = [];
   const displayed = Math.ceil(total * pages);
   for (let i = 1; i < displayed; i++) {
-    if (i <= 15) pagesTotal.push(i);
+    if (i <= pages) pagesTotal.push(i);
   }
   return (
     <div className="flex my-5">

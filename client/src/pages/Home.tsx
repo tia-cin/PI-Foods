@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   filterActivity,
   filterContinent,
@@ -8,12 +8,11 @@ import {
   orderCountriesName,
   orderCountriesPopulation,
   searchCountry,
-} from "../redux/actions"; // getRecipes
+} from "../redux/actions";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../redux/store";
 import { Button, Card, Input, Pagination, Titles } from "../components";
-import { ThunkAction } from "redux-thunk";
-import { ActionTypes } from "../types";
+import { AiOutlineSearch, AiOutlineReload } from "react-icons/ai";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -39,29 +38,44 @@ const Home = () => {
   }, [dispatch]);
 
   return (
-    <div className="p-5">
+    <div className="p-5 mt-5">
       <Titles
         title="Explore the world's countries"
         subtitle={`There are ${countries.length} countries waiting for you`}
       />
-      <div className="flex justify-around">
+
+      <div className="flex justify-evenly my-5 mt-10">
+        <button
+          className="bg-gray-200 rounded-full px-3 hover:bg-gray-300"
+          onClick={() => dispatch<any>(getCountries())}
+        >
+          <AiOutlineReload />
+        </button>
         <form
           onSubmit={(e) => {
             e.preventDefault();
             dispatch<any>(searchCountry(search));
             setSearch("");
           }}
-          className="flex"
+          className="flex bg-gray-200 rounded-lg p-2"
         >
-          <input value={search} onChange={(e) => setSearch(e.target.value)} />
-          <button type="submit">Search</button>
+          <input
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search"
+            className="bg-transparent focus:text-gray-700 focus:border-blue-700 focus:outline-none"
+          />
+          <button type="submit">
+            <AiOutlineSearch className="text-xl" />
+          </button>
         </form>
         <form className="flex">
-          <div>
+          <div className="bg-gray-200 rounded-lg p-2 mx-1">
             <select
               onChange={(e) =>
                 dispatch<any>(filterContinent(`continent-${e.target.value}`))
               }
+              className="bg-transparent"
             >
               <option selected>Filter by Continents</option>
               {continents.map((c, i) => (
@@ -71,11 +85,12 @@ const Home = () => {
               ))}
             </select>
           </div>
-          <div>
+          <div className="bg-gray-200 rounded-lg p-2 mx-1 hover:bg-gray-300">
             <select
               onChange={(e) =>
                 dispatch<any>(filterActivity(`activity-${e.target.value}`))
               }
+              className="bg-transparent"
             >
               <option selected>Filter by Activities</option>
               {activities.map((c, i) => (
@@ -85,44 +100,51 @@ const Home = () => {
               ))}
             </select>
           </div>
-          <div>
+          <div className="bg-gray-200 rounded-lg p-2 mx-1">
             <select
               onChange={(e) =>
                 dispatch<any>(orderCountriesPopulation(e.target.value))
               }
+              className="bg-transparent"
             >
               <option selected>Order per Population</option>
               {["min", "max"].map((c, i) => (
-                <option key={i} value={c}>
+                <option key={i} value={c} className="capitalize">
                   {c}
                 </option>
               ))}
             </select>
           </div>
-          <div>
+          <div className="bg-gray-200 rounded-lg p-2 mx-1">
             <select
               onChange={(e) =>
                 dispatch<any>(orderCountriesName(e.target.value))
               }
+              className="bg-transparent"
             >
               <option selected>Order per Name</option>
               {["asc", "desc"].map((c, i) => (
-                <option key={i} value={c}>
+                <option key={i} value={c} className="capitalize">
                   {c}
                 </option>
               ))}
             </select>
           </div>
         </form>
+        <Button
+          text="Create Activity"
+          style="px-2"
+          handle={() => window.open("/create", "_self")}
+        />
       </div>
-      <div className="flex flex-col justify-center items-center">
+      <div className="flex flex-col items-center">
         <Pagination
           current={page}
           pages={itemsXPage}
           total={countries.length}
           handlePag={handlePag}
         />
-        <div className="grid grid-cols-4 gap-2 mt-5 ml-16">
+        <div className="grid grid-cols-4 gap-x-20 mt-5 ml-16">
           {displayedItems.map((item, i) => (
             <Card key={i} {...item} />
           ))}
