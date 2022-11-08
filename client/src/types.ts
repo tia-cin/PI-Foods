@@ -43,7 +43,7 @@ export interface InputsProps {
 }
 
 export interface SelectProps {
-  values: Array<any>;
+  values: Array<string>;
   onChange: any;
   name: string;
 }
