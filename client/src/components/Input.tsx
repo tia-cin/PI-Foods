@@ -27,7 +27,7 @@ export const Select: React.FC<SelectProps> = ({ onChange, name, values }) => (
   <div className="mb-5">
     <label className="mx-2 font-medium text-lg capitalize">{name}</label>
     <select
-      className="w-full bg-gray-200 p-2 rounded-lg"
+      className="w-full bg-gray-200 p-2 rounded-lg cursor-pointer"
       name={name}
       onChange={onChange}
     >

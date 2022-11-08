@@ -13,7 +13,7 @@ function Landing() {
         </h1>
         <Button
           text="Start"
-          style="text-white mt-5 w-full font-bold text"
+          style="mt-5 w-full"
           handle={() => window.open("/home", "_self")}
         />
       </div>

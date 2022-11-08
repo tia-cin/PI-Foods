@@ -12,7 +12,7 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../redux/store";
 import { Button, Card, Input, Pagination, Select, Titles } from "../components";
-import { AiOutlineSearch, AiOutlineReload } from "react-icons/ai";
+import { AiOutlineReload } from "react-icons/ai";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -61,13 +61,11 @@ const Home = () => {
       </div>
       <div className="flex flex-col justify-evenly my-5 mt-10">
         <div className="flex justify-between flex-row-reverse">
-          <button
-            className="bg-gray-200 rounded-full px-5 text-2xl hover:bg-gray-300"
+          <AiOutlineReload
+            className="bg-gray-200 rounded-full w-12 h-12 p-3 cursor-pointer"
             onClick={() => dispatch<any>(getCountries())}
             title="Reset countries"
-          >
-            <AiOutlineReload />
-          </button>
+          />
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -102,7 +100,7 @@ const Home = () => {
         </form>
       </div>
       <div className="flex flex-col items-center">
-        <div className="grid grid-cols-5 gap-x-20 mt-5 ml-16">
+        <div className="grid grid-cols-5 gap-10 mt-5">
           {displayedItems.map((item, i) => (
             <Card key={i} {...item} />
           ))}
