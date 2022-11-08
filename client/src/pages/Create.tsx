@@ -59,6 +59,7 @@ const Create: React.FC = () => {
       season: "",
       countries: [],
     });
+    alert("New Activity Created!");
   };
 
   console.log(input);
