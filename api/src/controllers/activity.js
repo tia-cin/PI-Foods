@@ -13,15 +13,15 @@ const getActivities = async (req, res) => {
 
 const createActivity = async (req, res) => {
   try {
-    let { name, difficulty, duration, season, countries } = req.body;
-    let newActivity = await Activity.create({
+    const { name, difficulty, duration, season, countries } = req.body;
+    const newActivity = await Activity.create({
       name,
       difficulty,
       duration,
       season,
     });
     countries.map(async (c) => {
-      let activityCountry = await Country.findByPk(c);
+      const activityCountry = await Country.findByPk(c);
       await newActivity.addCountry(activityCountry);
       console.log("country", activityCountry);
     });

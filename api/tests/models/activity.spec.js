@@ -1,5 +1,5 @@
 const { Activity, conn } = require("../../src/db.js");
-const { expect } = require("chai");
+const { expect, should } = require("chai");
 
 const activity = {
   name: "Hicking",
@@ -28,6 +28,11 @@ describe("Activity model", () => {
           .then(() => done())
           .catch((err) => done(err.message));
       });
+      it("should type of name be an string", async () => {
+        await Activity.create(activity)
+          .then((res) => expect(res[0].name).to.be.a("string"))
+          .catch((err) => err.message);
+      });
     });
     describe("id", () => {
       it("should throw an error if id is null", (done) => {
@@ -39,6 +44,11 @@ describe("Activity model", () => {
         Activity.create(activity)
           .then(() => done())
           .catch((err) => done(err.message));
+      });
+      it("should type of id be an number (uuid)", async () => {
+        await Activity.create(activity)
+          .then((res) => expect(res[0].id).to.be.a("number"))
+          .catch((err) => err.message);
       });
     });
     describe("difficulty", () => {
@@ -52,6 +62,16 @@ describe("Activity model", () => {
           .then(() => done())
           .catch((err) => done(err.message));
       });
+      it("should type of difficulty be an string", async () => {
+        await Activity.create(activity)
+          .then((res) => expect(res[0].difficulty).to.be.a("string"))
+          .catch((err) => err.message);
+      });
+      it("should be a number between 1 and 5", async () => {
+        await Activity.create(activity)
+          .then((res) => expect(res[0].difficulty).to.not.equal("6"))
+          .catch((err) => err.message);
+      });
     });
     describe("duration", () => {
       it("should throw an error if duration is null", (done) => {
@@ -63,6 +83,11 @@ describe("Activity model", () => {
         Activity.create(activity)
           .then(() => done())
           .catch((err) => done(err.message));
+      });
+      it("should type of duration be an number", async () => {
+        await Activity.create(activity)
+          .then((res) => expect(res[0].duration).to.be.a("number"))
+          .catch((err) => err.message);
       });
     });
     describe("season", () => {
@@ -76,6 +101,11 @@ describe("Activity model", () => {
           .then(() => done())
           .catch((err) => done(err.message));
       });
+      it("should type of season be an string", async () => {
+        await Activity.create(activity)
+          .then((res) => expect(res[0].season).to.be.a("string"))
+          .catch((err) => err.message);
+      });
     });
     describe("countries", () => {
       it("should throw an error if countries is null", (done) => {
@@ -87,6 +117,16 @@ describe("Activity model", () => {
         Activity.create(activity)
           .then(() => done())
           .catch((err) => done(err.message));
+      });
+      it("should type of countries be an array", async () => {
+        await Activity.create(activity)
+          .then((res) => expect(res[0].countries).to.be.a("array"))
+          .catch((err) => err.message);
+      });
+      it("each item should be a string", async () => {
+        await Activity.create(activity)
+          .then((res) => expect(res[0].countries[0]).to.be.a("string"))
+          .catch((err) => err.message);
       });
     });
   });
