@@ -48,7 +48,6 @@ const getCountries = async (req, res) => {
     if (!full.length) {
       await Country.bulkCreate(apiRes);
     }
-    res.send({ message: "Countries added to database!" });
   } catch (error) {
     console.log(error);
     res.send({ message: "Countries were not added to database correctly!" });
@@ -102,17 +101,12 @@ const getCountries = async (req, res) => {
       res.send({ message: "Could not filter Countries" });
     }
   } else {
-    try {
-      const full = await Country.findAll({
-        include: {
-          model: Activity,
-        },
-      });
-      res.status(200).send(full);
-    } catch (error) {
-      console.log(error);
-      res.send({ message: "Could get all Countries" });
-    }
+    const full = await Country.findAll({
+      include: {
+        model: Activity,
+      },
+    });
+    res.status(200).send(full);
   }
 };
 
