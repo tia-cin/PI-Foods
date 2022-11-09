@@ -5,18 +5,32 @@ const app = require("../../src/app.js");
 const { Country, Activity, conn } = require("../../src/db.js");
 
 const agent = session(app);
-const country = {
-  name: "Milanga",
-  official: "Milanesa a la napolitana",
-  id: "MLG",
-  continent: "South America",
-  capital: "Milanesonia",
-  region: "Buenos Aires",
-  subregion: "CABA",
-  area: 100,
-  population: 2000,
-  independent: true,
-};
+const countries = [
+  {
+    name: "Milangas",
+    official: "Milanesa a la napolitana",
+    id: "MLG",
+    continent: "Europe",
+    capital: "Milanesonia",
+    region: "Buenos Aires",
+    subregion: "CABA",
+    area: 100,
+    population: 2000,
+    independent: true,
+  },
+  {
+    name: "Milanga",
+    official: "Milanesa a la napolitana",
+    id: "MLG",
+    continent: "South America",
+    capital: "Milanesonia",
+    region: "Buenos Aires",
+    subregion: "CABA",
+    area: 100,
+    population: 2000,
+    independent: true,
+  },
+];
 const activity = {
   name: "Hicking",
   duration: 5,
@@ -32,7 +46,9 @@ describe("Country routes", () => {
     })
   );
   beforeEach(() =>
-    Country.sync({ force: true }).then(() => Country.create(country))
+    Country.sync({ force: true }).then(() =>
+      countries.map((c) => Country.create(c))
+    )
   );
   describe("GET /countries", () => {
     it("should get 200", (done) => {
@@ -69,6 +85,28 @@ describe("Country routes", () => {
       agent
         .get("/countries?name=M")
         .then((res) => expect(res.message).to.be.equal("No country found"));
+      done();
+    });
+  });
+  describe("GET /countries?filter=...", () => {
+    it("should return status 404 when cannot filter", (done) => {
+      agent.get("/countries?filter=som").expect(404);
+      done();
+    });
+    it("should return all countries when cannot filter", (done) => {
+      agent
+        .get("/countries?filter=som")
+        .then((res) => expect(res.body).to.be.equal(countries));
+      done();
+    });
+    it("should return 200 when country found", (done) => {
+      agent.get("/countries?filter=continent-Europe").expect(200);
+      done();
+    });
+    it("should match continent with filter", (done) => {
+      agent
+        .get("/countries?filter=continent-Europe")
+        .then((res) => expect(res.body[0].continent).to.be.equal("Europe"));
       done();
     });
   });
