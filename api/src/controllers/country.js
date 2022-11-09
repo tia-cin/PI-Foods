@@ -47,8 +47,8 @@ const getCountries = async (req, res) => {
     });
     if (!full.length) {
       await Country.bulkCreate(apiRes);
-      res.send({ message: "Countries added to database!" });
     }
+    res.send({ message: "Countries added to database!" });
   } catch (error) {
     console.log(error);
     res.send({ message: "Countries were not added to database correctly!" });

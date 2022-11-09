@@ -28,10 +28,12 @@ describe("Country model", () => {
           .then(() => done(new Error("It requires a valid name")))
           .catch(() => done());
       });
-      it("should work when its a valid name", (done) => {
-        Country.create(country)
-          .then(() => done())
-          .catch((err) => done(err.message));
+      it("should work when its a valid name", async () => {
+        await Country.create(country)
+          .then((res) =>
+            expect(res.message).to.equal("Countries added to database!")
+          )
+          .catch((err) => err.message);
       });
     });
     describe("official", () => {
@@ -42,7 +44,9 @@ describe("Country model", () => {
       });
       it("should work when its a valid official", () => {
         Country.create(country)
-          .then(() => done())
+          .then((res) =>
+            expect(res.message).to.equal("Countries added to database!")
+          )
           .catch((err) => done(err.message));
       });
     });
@@ -54,7 +58,9 @@ describe("Country model", () => {
       });
       it("should work when its a valid id", () => {
         Country.create(country)
-          .then(() => done())
+          .then((res) =>
+            expect(res.message).to.equal("Countries added to database!")
+          )
           .catch((err) => done(err.message));
       });
     });
@@ -66,7 +72,9 @@ describe("Country model", () => {
       });
       it("should work when its a valid continent", () => {
         Country.create(country)
-          .then(() => done())
+          .then((res) =>
+            expect(res.message).to.equal("Countries added to database!")
+          )
           .catch((err) => done(err.message));
       });
     });
@@ -78,7 +86,9 @@ describe("Country model", () => {
       });
       it("should work when its a valid capital", () => {
         Country.create(country)
-          .then(() => done())
+          .then((res) =>
+            expect(res.message).to.equal("Countries added to database!")
+          )
           .catch((err) => done(err.message));
       });
     });
@@ -90,7 +100,9 @@ describe("Country model", () => {
       });
       it("should work when its a valid region", () => {
         Country.create(country)
-          .then(() => done())
+          .then((res) =>
+            expect(res.message).to.equal("Countries added to database!")
+          )
           .catch((err) => done(err.message));
       });
     });
@@ -102,7 +114,9 @@ describe("Country model", () => {
       });
       it("should work when its a valid subregion", () => {
         Country.create(country)
-          .then(() => done())
+          .then((res) =>
+            expect(res.message).to.equal("Countries added to database!")
+          )
           .catch((err) => done(err.message));
       });
     });
@@ -114,7 +128,9 @@ describe("Country model", () => {
       });
       it("should work when its a valid area", () => {
         Country.create(country)
-          .then(() => done())
+          .then((res) =>
+            expect(res.message).to.equal("Countries added to database!")
+          )
           .catch((err) => done(err.message));
       });
     });
@@ -126,7 +142,9 @@ describe("Country model", () => {
       });
       it("should work when its a valid population", () => {
         Country.create(country)
-          .then(() => done())
+          .then((res) =>
+            expect(res.message).to.equal("Countries added to database!")
+          )
           .catch((err) => done(err.message));
       });
     });
@@ -138,7 +156,9 @@ describe("Country model", () => {
       });
       it("should work when its a valid independent", () => {
         Country.create(country)
-          .then(() => done())
+          .then((res) =>
+            expect(res.message).to.equal("Countries added to database!")
+          )
           .catch((err) => done(err.message));
       });
     });
