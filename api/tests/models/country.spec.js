@@ -16,12 +16,9 @@ const country = {
 
 describe("Country model", () => {
   before(() =>
-    conn
-      .authenticate()
-      .then(() => console.log("Model Testing"))
-      .catch((err) => {
-        console.error("Unable to connect to the database:", err);
-      })
+    conn.authenticate().catch((err) => {
+      console.error("Unable to connect to the database:", err);
+    })
   );
   describe("Validators", () => {
     before(() => Country.sync({ force: true }));
