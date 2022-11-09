@@ -17,7 +17,6 @@ module.exports = (sequelize) => {
     },
     flag: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
     continent: {
       type: DataTypes.STRING,
@@ -36,12 +35,11 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     area: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     status: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
     population: {
       type: DataTypes.INTEGER,
@@ -53,27 +51,21 @@ module.exports = (sequelize) => {
     },
     latitude: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
     longitude: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
     map: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
     timezone: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
     unMember: {
       type: DataTypes.BOOLEAN,
-      allowNull: false,
     },
     landlocked: {
       type: DataTypes.BOOLEAN,
-      allowNull: false,
     },
   });
 };
