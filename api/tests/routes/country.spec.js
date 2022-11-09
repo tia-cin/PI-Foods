@@ -2,7 +2,7 @@
 const { expect } = require("chai");
 const session = require("supertest-session");
 const app = require("../../src/app.js");
-const { Country, Activity, conn } = require("../../src/db.js");
+const { Country, conn } = require("../../src/db.js");
 
 const agent = session(app);
 const countries = [
@@ -31,13 +31,6 @@ const countries = [
     independent: true,
   },
 ];
-const activity = {
-  name: "Hicking",
-  duration: 5,
-  difficulty: 4,
-  season: "spring",
-  countries: ["HKG", "RWA", "MYS"],
-};
 
 describe("Country routes", () => {
   before(() =>
@@ -62,7 +55,7 @@ describe("Country routes", () => {
     it("each item should be an object", (done) => {
       agent
         .get("/countries")
-        .then((res) => expect(res[0]).to.be.equal(activity));
+        .then((res) => expect(res[0]).to.be.equal(countries));
       done();
     });
   });
