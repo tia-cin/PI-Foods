@@ -47,9 +47,11 @@ const getCountries = async (req, res) => {
     });
     if (!full.length) {
       await Country.bulkCreate(apiRes);
+      res.send({ message: "Countries added to database!" });
     }
   } catch (error) {
     console.log(error);
+    res.send({ message: "Countries were not added to database correctly!" });
   }
 
   const countries = await Country.findAll({
@@ -59,62 +61,89 @@ const getCountries = async (req, res) => {
   });
 
   if (name) {
-    const countryName = await Country.findAll({
-      where: {
-        name: {
-          [Sequelize.Op.iLike]: `%${name.toLowerCase()}%`,
+    try {
+      const countryName = await Country.findAll({
+        where: {
+          name: {
+            [Sequelize.Op.iLike]: `%${name.toLowerCase()}%`,
+          },
         },
-      },
-      include: {
-        model: Activity,
-      },
-    });
-    countryName.length
-      ? res.status(200).send(countryName)
-      : res.status(404).send("No country");
+        include: {
+          model: Activity,
+        },
+      });
+      countryName.length
+        ? res.status(200).send(countryName)
+        : res.status(404).send({ message: "No country found" });
+    } catch (error) {
+      console.log(error);
+      res.send({ message: "Could not find Country name" });
+    }
   } else if (filter) {
-    const val = filter.split("-");
-    switch (val[0]) {
-      case "continent":
-        return res.send(countries.filter((c) => c.continent.includes(val[1])));
-      case "activity":
-        return res.send(
-          countries.filter(
-            (c) =>
-              c.activities && c.activities.map((a) => a.name).includes(val[1])
-          )
-        );
-      default:
-        return res.send(countries);
+    try {
+      const val = filter.split("-");
+      switch (val[0]) {
+        case "continent":
+          return res.send(
+            countries.filter((c) => c.continent.includes(val[1]))
+          );
+        case "activity":
+          return res.send(
+            countries.filter(
+              (c) =>
+                c.activities && c.activities.map((a) => a.name).includes(val[1])
+            )
+          );
+        default:
+          return res.send(countries);
+      }
+    } catch (error) {
+      console.log(error);
+      res.send({ message: "Could not filter Countries" });
     }
   } else {
-    const full = await Country.findAll({
-      include: {
-        model: Activity,
-      },
-    });
-    res.status(200).send(full);
+    try {
+      const full = await Country.findAll({
+        include: {
+          model: Activity,
+        },
+      });
+      res.status(200).send(full);
+    } catch (error) {
+      console.log(error);
+      res.send({ message: "Could get all Countries" });
+    }
   }
 };
 
 const getCountry = async (req, res) => {
-  const { id } = req.params;
-  const country = await Country.findByPk(id, {
-    include: {
-      model: Activity,
-    },
-  });
-  if (country) return res.status(200).send(country);
-  else return res.send("No country");
+  try {
+    const { id } = req.params;
+    const country = await Country.findByPk(id, {
+      include: {
+        model: Activity,
+      },
+    });
+    if (country) return res.status(200).send(country);
+    else return res.send({ message: "No country" });
+  } catch (error) {
+    console.log(error);
+    res.send({ message: "Could not get Country" });
+  }
 };
 
 const getContinents = async (req, res) => {
-  const data = await Country.findAll();
-  const continents = await data
-    .map((d) => d.continent)
-    .filter((val, i, curr) => curr.indexOf(val) === i);
-  res.send(continents);
-  return continents;
+  try {
+    const data = await Country.findAll();
+    const continents = await data
+      .map((d) => d.continent)
+      .filter((val, i, curr) => curr.indexOf(val) === i);
+    res.send(continents);
+    return continents;
+  } catch (error) {
+    console.log(error);
+    res.send({ message: "Could not get Continents" });
+  }
 };
 
 module.exports = {

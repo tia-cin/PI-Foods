@@ -2,9 +2,13 @@ const { Country, Activity } = require("../db");
 const { Sequelize } = require("sequelize");
 
 const getActivities = async (req, res) => {
-  const activities = await Activity.findAll();
-
-  res.send(activities);
+  try {
+    const activities = await Activity.findAll();
+    res.send(activities);
+  } catch (error) {
+    console.log(error);
+    res.send({ message: "Cannot get activities" });
+  }
 };
 
 const createActivity = async (req, res) => {
